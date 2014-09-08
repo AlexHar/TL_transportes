@@ -6,6 +6,7 @@
 
 package Visao;
 
+import Controle.Cliente;
 import Controle.Pessoa;
 import Modelo.ClienteDAO;
 import java.sql.SQLException;
@@ -18,8 +19,8 @@ import javax.swing.table.DefaultTableModel;
  * @author lailson
  */
 public class ConsCliente extends javax.swing.JFrame {
-   // Pessoa p;
-    //ArrayList lista = new ArrayList();
+    Cliente c = new Cliente();
+    ArrayList lista = new ArrayList();
    // ClienteDAO dao = new ClienteDAO();
     
 
@@ -28,7 +29,7 @@ public class ConsCliente extends javax.swing.JFrame {
      */
     public ConsCliente() {
         initComponents();
-        //atualizaLista();
+        atualizaLista(null, null, null);
     }
     
 
@@ -128,49 +129,51 @@ public class ConsCliente extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(172, 172, 172)
-                        .addComponent(jLabel23)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jSeparator6))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(alterar)
-                                .addGap(35, 35, 35)
-                                .addComponent(excluir)
-                                .addGap(35, 35, 35)
-                                .addComponent(cancelar)
-                                .addGap(154, 154, 154))
-                            .addComponent(jScrollPane1)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel24)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(bnome_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 10, Short.MAX_VALUE))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel7Layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(bcpf_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel24)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(bnome_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel7Layout.createSequentialGroup()
-                                        .addGap(146, 146, 146)
-                                        .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel7Layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(atualiza)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(jPanel7Layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(bServ, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                                .addComponent(jLabel1)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(bcpf_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                                .addGap(146, 146, 146)
+                                                .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                                .addGap(10, 10, 10)
+                                                .addComponent(atualiza))
+                                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                                .addComponent(jLabel2)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(bServ, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(65, 65, 65)))))
                 .addContainerGap())
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(203, 203, 203)
+                .addComponent(alterar)
+                .addGap(35, 35, 35)
+                .addComponent(excluir)
+                .addGap(35, 35, 35)
+                .addComponent(cancelar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel23)
+                .addGap(252, 252, 252))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,29 +313,27 @@ public class ConsCliente extends javax.swing.JFrame {
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 
-
     public void atualizaLista(String nome, String cpf, String servico){
-        /*String[] nomesColunas = {"código", "Nome", "CPF", "RG", "Endereço", "Nº:", "Bairro", "Complemento", "Apt", "Cidade", "UF"};
-        ArrayList lista = new ArrayList((ClienteEscolar.consultar(nome, cpf, servico)));
+        String[] nomesColunas = {"código", "Nome", "CPF", "RG", "Data Nasc.", "Endereço", "Nº:", "Cidade", "Estado", "Telefone", "Servico", "Tipo"};
+        ArrayList lista = new ArrayList((Cliente.consultarCliente()));
         Object[][] dadosVetor = new Object[lista.size()][nomesColunas.length];
         for (int i=0; i<lista.size(); i++){
-            Pessoa pessoas = (Pessoa)lista.get(i);
-            dadosVetor[i][0] = pessoas.getIdPessoa();
-            dadosVetor[i][1] = pessoas.getNome();
-            dadosVetor[i][2] = pessoas.getCpf();
-            dadosVetor[i][3] = pessoas.getRg();
-            Endereco e = pessoas.getEndereco();
-            dadosVetor[i][4] = e.getRua();
-            dadosVetor[i][5] = e.getNumero();
-            dadosVetor[i][6] = e.getBairro();
-            dadosVetor[i][7] = e.getComplemento();
-            dadosVetor[i][8] = e.getApartamento();
-            Cidade c = pessoas.getCidade();
-            dadosVetor[i][9] = c.getNome();
-            dadosVetor[i][10] = c.getUf();
+            Cliente cli = (Cliente)lista.get(i);
+            dadosVetor[i][0] = cli.getId();
+            dadosVetor[i][1] = cli.getNome();
+            dadosVetor[i][2] = cli.getCpf();
+            dadosVetor[i][3] = cli.getRg();
+            dadosVetor[i][4] = cli.getNascimento();
+            dadosVetor[i][5] = cli.getEndereco();
+            dadosVetor[i][6] = cli.getnEndereco();
+            dadosVetor[i][7] = cli.getCidade();
+            dadosVetor[i][8] = cli.getEstado();
+            dadosVetor[i][9] = cli.getTelefone();
+            dadosVetor[i][10] = cli.getServico();
+            dadosVetor[i][11] = cli.getTipoPessoa();
         }
         DefaultTableModel modelo = new DefaultTableModel(dadosVetor,nomesColunas);
-        tabela.setModel(modelo);*/
+        tabela.setModel(modelo);
     }
 
 }

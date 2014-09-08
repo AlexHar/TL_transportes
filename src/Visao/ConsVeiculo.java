@@ -60,6 +60,12 @@ public class ConsVeiculo extends javax.swing.JFrame {
 
         jLabel24.setText("Busca por Placa:");
 
+        bPlaca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bPlacaActionPerformed(evt);
+            }
+        });
+
         buscar.setText("Buscar");
         buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,10 +122,9 @@ public class ConsVeiculo extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(bPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(buscar)
-                                .addGap(18, 18, 18)
-                                .addComponent(atualiza)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(buscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(atualiza, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
                         .addGap(172, 172, 172)
                         .addComponent(jLabel23)
@@ -209,6 +214,10 @@ public class ConsVeiculo extends javax.swing.JFrame {
         // TODO add your handling code here:
         atualizaLista();
     }//GEN-LAST:event_atualizaActionPerformed
+
+    private void bPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPlacaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bPlacaActionPerformed
 
     /**
      * @param args the command line arguments

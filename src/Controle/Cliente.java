@@ -8,10 +8,11 @@ package Controle;
 import Modelo.ClienteDAO;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -19,27 +20,35 @@ import javax.persistence.Table;
  * @author guitonsic
  */
 @Entity
-@Table(name="Pessoa")
+@Table(name="Cliente")
+@PrimaryKeyJoinColumn (name="id_pessoa")
 public class Cliente extends Pessoa implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
     
     private String servico;
     
     private int tipo;
 
-    @Override
-    public Long getId() {
-        return id;
+    public Cliente() {
     }
 
-    @Override
-    public void setId(Long id) {
-        this.id = id;
+    
+    
+    public Cliente(String servico, int tipo) {
+        this.servico = servico;
+        this.tipo = tipo;
     }
+
+    public Cliente(String servico, int tipo, Long id, String nome, int rg, int cpf, String endereco, int nEndereco, String cidade, String estado, int telefone, String nascimento, String tipoPessoa) {
+        super(id, nome, rg, cpf, endereco, nEndereco, cidade, estado, telefone, nascimento, tipoPessoa);
+        this.servico = servico;
+        this.tipo = tipo;
+    }
+
+    
+    
+    static List<Veiculo> clientes = new ArrayList();
 
     public String getServico() {
         return servico;
@@ -65,18 +74,19 @@ public class Cliente extends Pessoa implements Serializable {
         ClienteDAO.excluir(P);
     }
 
-    public void consultarCliente(Cliente P) throws SQLException, ClassNotFoundException {
-        ClienteDAO.consultar();
+    public static Collection consultarCliente(){
+        clientes = (List<Veiculo>) ClienteDAO.consultar();
+        return clientes;
     }
 
     public void atualizarCliente(Cliente P) throws SQLException, ClassNotFoundException {
         ClienteDAO.atualizar(P);
     }
-
+/*
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (id_cliente != null ? id_cliente.hashCode() : 0);
         return hash;
     }
 
@@ -87,7 +97,7 @@ public class Cliente extends Pessoa implements Serializable {
             return false;
         }
         Cliente other = (Cliente) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.id_cliente == null && other.id_cliente != null) || (this.id_cliente != null && !this.id_cliente.equals(other.id_cliente))) {
             return false;
         }
         return true;
@@ -95,7 +105,7 @@ public class Cliente extends Pessoa implements Serializable {
 
     @Override
     public String toString() {
-        return "Modelo.Pessoa[ id=" + id + " ]";
-    }
+        return "Modelo.Pessoa[ id=" + id_cliente + " ]";
+    }*/
 
 }

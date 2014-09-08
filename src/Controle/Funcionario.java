@@ -12,32 +12,25 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 /**
  *
  * @author guitonsic
  */
 @Entity
+@Table (name="funcionario")
+@PrimaryKeyJoinColumn (name="id_pessoa")
 public class Funcionario extends Pessoa implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
     
     private int tipo;
 
     private String cargo;
 
     private double salario;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCargo() {
         return cargo;
@@ -74,7 +67,7 @@ public class Funcionario extends Pessoa implements Serializable {
     public void consultarFuncionario(Funcionario P) throws SQLException, ClassNotFoundException {
         FuncionarioDAO.consultar(P);
     }
-
+/*
     @Override
     public int hashCode() {
         int hash = 0;
@@ -98,6 +91,6 @@ public class Funcionario extends Pessoa implements Serializable {
     @Override
     public String toString() {
         return "Modelo.Funcion\u00e1rio[ id=" + id + " ]";
-    }
+    }*/
 
 }

@@ -11,13 +11,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 /**
  *
  * @author guitonsic
  */
 @Entity
-public class Pessoa implements Serializable {
+@Inheritance (strategy = InheritanceType.JOINED)
+public abstract class Pessoa implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -52,7 +55,34 @@ public class Pessoa implements Serializable {
     private int telefone;
 
     private String nascimento;
+    
+    private String tipoPessoa;
 
+    public Pessoa(Long id, String nome, int rg, int cpf, String endereco, int nEndereco, String cidade, String estado, int telefone, String nascimento, String tipoPessoa) {
+        this.id = id;
+        this.nome = nome;
+        this.rg = rg;
+        this.cpf = cpf;
+        this.endereco = endereco;
+        this.nEndereco = nEndereco;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.telefone = telefone;
+        this.nascimento = nascimento;
+        this.tipoPessoa = tipoPessoa;
+    }
+
+    public String getTipoPessoa() {
+        return tipoPessoa;
+    }
+
+    public void setTipoPessoa(String tipoPessoa) {
+        this.tipoPessoa = tipoPessoa;
+    }
+
+    
+    
+    
     public String getNome() {
         return nome;
     }

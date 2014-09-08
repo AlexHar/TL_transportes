@@ -26,9 +26,9 @@ public class Conexao {
     public static Statement stm;
     public static ResultSet rs;
     
-    private static final String driver = "org.postgresql.Driver"; //"com.mysql.jdbc.Driver";//identifica qual banco estou usando
+    private static final String driver = "org.mysql.Driver"; //"com.mysql.jdbc.Driver";//identifica qual banco estou usando
     private static final String caminho = "jdbc:postgresql://localhost:5432/TLTransportesPU"; //"jdbc:mysql://localhost:3306/TLTransportesPU";//caminho do banco
-    private static final String usuario = "postgres"; //"root";//usuario do banco
+    private static final String usuario = "postgres"; //root";//usuario do banco
     private static final String senha = "MEUBD"; //"admin";//senha do usuario do banco
     public  static Connection conn = null;//objeto conn para efetuar a conexão com o banco
     

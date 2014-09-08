@@ -70,10 +70,9 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="bPlaca" min="-2" pref="201" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="buscar" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="atualiza" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="buscar" max="32767" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="atualiza" min="-2" pref="137" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -139,6 +138,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="bPlaca">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bPlacaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buscar">
           <Properties>

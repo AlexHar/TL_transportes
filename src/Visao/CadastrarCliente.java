@@ -264,6 +264,7 @@ public class CadastrarCliente extends javax.swing.JFrame {
             cliente.setCidade(this.campoCidade.getText());
             cliente.setEstado(this.campoUf.getText());
             cliente.setServico(this.campoServico.getText());
+            cliente.setTipoPessoa("Cliente");
             
             cliente.cadastrarCliente(cliente);
             
