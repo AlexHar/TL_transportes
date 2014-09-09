@@ -5,13 +5,13 @@
  */
 package Controle;
 
+import ChavePrimaria.CpfPK;
 import Modelo.FuncionarioDAO;
 import java.io.Serializable;
 import java.sql.SQLException;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 /**
@@ -20,11 +20,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table (name="funcionario")
+@IdClass (value=CpfPK.class)
 
 public class Funcionario implements Serializable {
 
 private static final long serialVersionUID = 1L;
-    @Id
+    /*@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -34,13 +35,14 @@ private static final long serialVersionUID = 1L;
 
     public void setId(Long id) {
         this.id = id;
-    }
+    }*/
         
     private String nome;
 
     private int rg;
 
-    private int cpf;
+    @Id
+    private String cpf;
 
     private String endereco;
     
@@ -74,11 +76,11 @@ private static final long serialVersionUID = 1L;
         this.rg = rg;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -165,7 +167,7 @@ private static final long serialVersionUID = 1L;
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (cpf != null ? cpf.hashCode() : 0);
         return hash;
     }
 
@@ -176,12 +178,12 @@ private static final long serialVersionUID = 1L;
             return false;
         }
         Funcionario other = (Funcionario) object;
-        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
+        return (this.cpf != null || other.cpf == null) && (this.cpf == null || this.cpf.equals(other.cpf));
     }
 
     @Override
     public String toString() {
-        return "Modelo.Funcionario[ id=" + id + " ]";
+        return "Modelo.Funcionario[ id=" + cpf + " ]";
     }
 
 }

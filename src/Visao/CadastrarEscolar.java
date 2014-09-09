@@ -7,6 +7,7 @@
 package Visao;
 
 import Controle.ClienteEscolar;
+import Validacoes.ValidaCPF;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -285,39 +286,51 @@ public class CadastrarEscolar extends javax.swing.JFrame {
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
         // TODO add your handling code here:
-
+        boolean flagCpf = false;
+        boolean flagCpfResponsavel = false;
+        try {
             ClienteEscolar cliente = new ClienteEscolar();
             
-            int rg = Integer.parseInt(this.campoRG.getText());
-            int cpf = Integer.parseInt(this.campoCPF.getText());
-            int tel = Integer.parseInt(this.campoTel.getText());
-            int numEnd = Integer.parseInt(this.campoNumEnde.getText());
-            int cpfResp = Integer.parseInt(this.campoCPFResp.getText());
+            while (flagCpf == false || flagCpfResponsavel == false) {
+                int rg = Integer.parseInt(this.campoRG.getText());
+                //int cpf = Integer.parseInt(this.campoCPF.getText());
+                int tel = Integer.parseInt(this.campoTel.getText());
+                int numEnd = Integer.parseInt(this.campoNumEnde.getText());
+                //int cpfResp = Integer.parseInt(this.campoCPFResp.getText());
 
             
-            cliente.setNome(this.campoNome.getText());
-            cliente.setRg(rg);
-            cliente.setCpf(cpf);
-            cliente.setNascimento(this.campoData.getText());
-            cliente.setTelefone(tel);
-            cliente.setEndereco(this.campoEnde.getText());
-            cliente.setnEndereco(numEnd);
-            cliente.setCidade(this.campoCidade.getText());
-            cliente.setEstado(this.campoUf.getText());
-            cliente.setNomeResponsavel(this.campoNomeResp.getText());
-            cliente.setCpfResponsavel(cpfResp);
-            cliente.setNomeEscola(this.campoEscola.getText());
-            
-            
-        try {
-            cliente.cadastrarCliente(cliente);
+                cliente.setNome(this.campoNome.getText());
+                cliente.setRg(rg);
+                cliente.setCpf(this.campoCPF.getText());
+                cliente.setNascimento(this.campoData.getText());
+                cliente.setTelefone(tel);
+                cliente.setEndereco(this.campoEnde.getText());
+                cliente.setnEndereco(numEnd);
+                cliente.setCidade(this.campoCidade.getText());
+                cliente.setEstado(this.campoUf.getText());
+                cliente.setNomeResponsavel(this.campoNomeResp.getText());
+                cliente.setCpfResponsavel(this.campoCPFResp.getText());
+                cliente.setNomeEscola(this.campoEscola.getText());
+                
+                flagCpf = verificaCPF(this.campoCPF.getText());
+                flagCpfResponsavel = verificaCPF(this.campoCPFResp.getText());
+                
+                if (flagCpf == false) {
+                    JOptionPane.showMessageDialog(null, "O CPF" + " " + this.campoCPF.getText() + " " + "é inválido, digite novamente o CPF.",null, JOptionPane.ERROR_MESSAGE);
+                    break;
+                } else if (flagCpfResponsavel == false) {
+                    JOptionPane.showMessageDialog(null, "O CPF do responsável" + " " + this.campoCPFResp.getText() + " " + "é inválido, digite novamente o CPF.",null, JOptionPane.ERROR_MESSAGE);
+                    break;
+                } else {
+                    cliente.cadastrarCliente(cliente);
+                    dispose();
+                }
+            }       
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CadastrarEscolar.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(CadastrarEscolar.class.getName()).log(Level.SEVERE, null, ex);
         }
-                    
-        dispose();
     }//GEN-LAST:event_salvarActionPerformed
 
     private void cancelarjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarjButton2ActionPerformed
@@ -361,6 +374,10 @@ public class CadastrarEscolar extends javax.swing.JFrame {
                 new CadastrarEscolar().setVisible(true);
             }
         });
+    }
+    
+    boolean verificaCPF (String cpf) {
+        return ValidaCPF.calculaCPF(cpf);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

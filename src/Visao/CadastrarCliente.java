@@ -7,9 +7,11 @@
 package Visao;
 
 import Controle.ClienteTurismo;
+import Validacoes.ValidaCPF;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -243,33 +245,45 @@ public class CadastrarCliente extends javax.swing.JFrame {
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
         // TODO add your handling code here:
+        boolean flag = false;
         try {
             ClienteTurismo cliente = new ClienteTurismo();
             
-            int rg = Integer.parseInt(this.campoRG.getText());
-            int cpf = Integer.parseInt(this.campoCPF.getText());
-            int tel = Integer.parseInt(this.campoTel.getText());
-            int numEnd = Integer.parseInt(this.campoNumEnd.getText());
+            while (flag == false) {
             
-            cliente.setNome(this.campoNome.getText());
-            cliente.setRg(rg);
-            cliente.setCpf(cpf);
-            cliente.setNascimento(this.campoData.getText());
-            cliente.setTelefone(tel);
-            cliente.setEndereco(this.campoEnde.getText());
-            cliente.setnEndereco(numEnd);
-            cliente.setCidade(this.campoCidade.getText());
-            cliente.setEstado(this.campoUf.getText());
+                int rg = Integer.parseInt(this.campoRG.getText());
+                //int cpf = Integer.parseInt(this.campoCPF.getText());
+                int tel = Integer.parseInt(this.campoTel.getText());
+                int numEnd = Integer.parseInt(this.campoNumEnd.getText());
             
-            cliente.cadastrarCliente(cliente);
+                cliente.setNome(this.campoNome.getText());
+                cliente.setRg(rg);
+                cliente.setCpf(this.campoCPF.getText());
+                cliente.setNascimento(this.campoData.getText());
+                cliente.setTelefone(tel);
+                cliente.setEndereco(this.campoEnde.getText());
+                cliente.setnEndereco(numEnd);
+                cliente.setCidade(this.campoCidade.getText());
+                cliente.setEstado(this.campoUf.getText());
+            
+                //Caso verficaCPF() for falso, o CPF é inválido, caso contrario ele valida o CPF e encerra o cadastro
+                flag = verificaCPF(this.campoCPF.getText());
+                if (flag == false) {
+                    JOptionPane.showMessageDialog(null, "O CPF" + " " + this.campoCPF.getText() + " " + "é inválido, digite novamente o CPF.",null, JOptionPane.ERROR_MESSAGE);
+                    break;
+                } else {
+                    cliente.cadastrarCliente(cliente);
+                    dispose();
+                }
+            }
+            
+            
             
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(CadastrarCliente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(CadastrarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        dispose();
     }//GEN-LAST:event_SalvarActionPerformed
 
     /**
@@ -303,6 +317,10 @@ public class CadastrarCliente extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new CadastrarCliente().setVisible(true);
         });
+    }
+    
+    boolean verificaCPF (String cpf) {
+        return ValidaCPF.calculaCPF(cpf);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

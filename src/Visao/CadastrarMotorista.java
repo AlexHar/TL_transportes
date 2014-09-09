@@ -7,6 +7,7 @@
 package Visao;
 
 import Controle.Motorista;
+import Validacoes.ValidaCPF;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -271,40 +272,47 @@ public class CadastrarMotorista extends javax.swing.JFrame {
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
         // TODO add your handling code here:
-        Motorista motorista = new Motorista();
-            
-            int rg = Integer.parseInt(this.campoRG.getText());
-            int cpf = Integer.parseInt(this.campoCPF.getText());
-            int tel = Integer.parseInt(this.campoTel.getText());
-            //int numEnd = Integer.parseInt(this.campoNumEnd.getText());
-            double salario = Double.parseDouble(this.campoSalario.getText());
-            int numHab = Integer.parseInt(this.campoNumHab.getText());
-           
-            motorista.setNome(this.campoNome.getText());
-            motorista.setRg(rg);
-            motorista.setCpf(cpf);
-            motorista.setNascimento(this.campoData.getText());
-            motorista.setTelefone(tel);
-            motorista.setEndereco(this.campoEnde.getText());
-            //motorista.setnEndereco(numEnd);
-            motorista.setCidade(this.campoCidade.getText());
-            motorista.setEstado(this.campoUf.getText());
-            motorista.setSalario(salario);
-            motorista.setNumHabilitacao(numHab);
-            motorista.setTipoHabilitacao(this.campoTipoHab.getText());
-            
-            
+        boolean flagCpf = false;
+        
         try {
-            motorista.cadastrarMotorista(motorista);
+            Motorista motorista = new Motorista();
+            
+            while (flagCpf == false) {
+                int rg = Integer.parseInt(this.campoRG.getText());
+                //int cpf = Integer.parseInt(this.campoCPF.getText());
+                int tel = Integer.parseInt(this.campoTel.getText());
+                //int numEnd = Integer.parseInt(this.campoNumEnd.getText());
+                double salario = Double.parseDouble(this.campoSalario.getText());
+                int numHab = Integer.parseInt(this.campoNumHab.getText());
+           
+                motorista.setNome(this.campoNome.getText());
+                motorista.setRg(rg);
+                motorista.setCpf(this.campoCPF.getText());
+                motorista.setNascimento(this.campoData.getText());
+                motorista.setTelefone(tel);
+                motorista.setEndereco(this.campoEnde.getText());
+                //motorista.setnEndereco(numEnd);
+                motorista.setCidade(this.campoCidade.getText());
+                motorista.setEstado(this.campoUf.getText());
+                motorista.setSalario(salario);
+                motorista.setNumHabilitacao(numHab);
+                motorista.setTipoHabilitacao(this.campoTipoHab.getText());
+                
+                flagCpf = verificaCPF(this.campoCPF.getText());
+                
+                if (flagCpf == false) {
+                    JOptionPane.showMessageDialog(null, "O CPF" + " " + this.campoCPF.getText() + " " + "é inválido, digite novamente o CPF.",null, JOptionPane.ERROR_MESSAGE);
+                    break;
+                } else {
+                    motorista.cadastrarMotorista(motorista);
+                    dispose();
+                }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(CadastrarMotorista.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CadastrarMotorista.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-        
-        
-        dispose();
     }//GEN-LAST:event_salvarActionPerformed
 
     private void cancelarjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarjButton2ActionPerformed
@@ -348,6 +356,11 @@ public class CadastrarMotorista extends javax.swing.JFrame {
                 new CadastrarMotorista().setVisible(true);
             }
         });
+    }
+    
+    //Validação do CPF
+    boolean verificaCPF (String cpf) {
+        return ValidaCPF.calculaCPF(cpf);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

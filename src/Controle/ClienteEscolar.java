@@ -5,6 +5,7 @@
  */
 
 package Controle;
+import ChavePrimaria.CpfPK;
 import Modelo.ClienteEscolarDAO;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -12,10 +13,11 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="Escolar")
+@IdClass (value=CpfPK.class)
 public class ClienteEscolar implements Serializable {
     
 private static final long serialVersionUID = 1L;
-    @Id
+    /*@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -25,13 +27,14 @@ private static final long serialVersionUID = 1L;
 
     public void setId(Long id) {
         this.id = id;
-    }
+    }*/
     
     private String nome;
 
     private int rg;
 
-    private int cpf;
+    @Id
+    private String cpf;
 
     private String endereco;
     
@@ -51,7 +54,7 @@ private static final long serialVersionUID = 1L;
     
     private String nomeResponsavel;
     
-    private int cpfResponsavel;
+    private String cpfResponsavel;
 
     public String getNomeResponsavel() {
         return nomeResponsavel;
@@ -61,11 +64,11 @@ private static final long serialVersionUID = 1L;
         this.nomeResponsavel = nomeResponsavel;
     }
 
-    public int getCpfResponsavel() {
+    public String getCpfResponsavel() {
         return cpfResponsavel;
     }
 
-    public void setCpfResponsavel(int cpfResponsavel) {
+    public void setCpfResponsavel(String cpfResponsavel) {
         this.cpfResponsavel = cpfResponsavel;
     }
     
@@ -85,11 +88,11 @@ private static final long serialVersionUID = 1L;
         this.rg = rg;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -168,7 +171,7 @@ private static final long serialVersionUID = 1L;
         @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (cpf != null ? cpf.hashCode() : 0);
         return hash;
     }
 
@@ -179,12 +182,12 @@ private static final long serialVersionUID = 1L;
             return false;
         }
         ClienteEscolar other = (ClienteEscolar) object;
-        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
+        return (this.cpf != null || other.cpf == null) && (this.cpf == null || this.cpf.equals(other.cpf));
     }
 
     @Override
     public String toString() {
-        return "Modelo.ClienteEscolar[ id=" + id + " ]";
+        return "Modelo.ClienteEscolar[ id=" + cpf + " ]";
     }
     
 }

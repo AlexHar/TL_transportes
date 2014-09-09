@@ -318,7 +318,7 @@ public class ConsCliente extends javax.swing.JFrame {
         Object[][] dadosVetor = new Object[lista.size()][nomesColunas.length];
         for (int i=0; i<lista.size(); i++){
             ClienteTurismo cli = (ClienteTurismo)lista.get(i);
-            dadosVetor[i][0] = cli.getId();
+            //dadosVetor[i][0] = cli.getId();
             dadosVetor[i][1] = cli.getNome();
             dadosVetor[i][2] = cli.getCpf();
             dadosVetor[i][3] = cli.getRg();

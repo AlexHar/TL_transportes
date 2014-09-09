@@ -7,6 +7,7 @@
 package Visao;
 
 import Controle.Funcionario;
+import Validacoes.ValidaCPF;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -268,34 +269,43 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
         // TODO add your handling code here:
+        boolean flagCpf = false;
+        
         try {
             Funcionario funcionario = new Funcionario();
             
-            int rg = Integer.parseInt(this.campoRG.getText());
-            int cpf = Integer.parseInt(this.campoCPF.getText());
-            int numEnd = Integer.parseInt(this.campoNumEnd.getText());
-            int tel = Integer.parseInt(this.campoTel.getText());
-            double salario = Double.parseDouble(this.campoSalario.getText());
+            while (flagCpf == false) {
+                int rg = Integer.parseInt(this.campoRG.getText());
+                //int cpf = Integer.parseInt(this.campoCPF.getText());
+                int numEnd = Integer.parseInt(this.campoNumEnd.getText());
+                int tel = Integer.parseInt(this.campoTel.getText());
+                double salario = Double.parseDouble(this.campoSalario.getText());
             
-            funcionario.setNome(this.campoNome.getText());
-            funcionario.setRg(rg);
-            funcionario.setCpf(cpf);
-            funcionario.setEndereco(this.campoEnd.getText());
-            funcionario.setnEndereco(numEnd);
-            funcionario.setCidade(this.campoCidade.getText());
-            funcionario.setEstado(this.campoEstado.getText());
-            funcionario.setTelefone(tel);
-            funcionario.setNascimento(this.campoNasc.getText());
-            funcionario.setCargo(this.campoCargo.getText());
-            funcionario.setSalario(salario);
-            
-            funcionario.cadastrarFuncionario(funcionario);
-            
+                funcionario.setNome(this.campoNome.getText());
+                funcionario.setRg(rg);
+                funcionario.setCpf(this.campoCPF.getText());
+                funcionario.setEndereco(this.campoEnd.getText());
+                funcionario.setnEndereco(numEnd);
+                funcionario.setCidade(this.campoCidade.getText());
+                funcionario.setEstado(this.campoEstado.getText());
+                funcionario.setTelefone(tel);
+                funcionario.setNascimento(this.campoNasc.getText());
+                funcionario.setCargo(this.campoCargo.getText());
+                funcionario.setSalario(salario);
+                
+                flagCpf = verificaCPF(this.campoCPF.getText());
+                
+                if (flagCpf == false) {
+                    JOptionPane.showMessageDialog(null, "O CPF" + " " + this.campoCPF.getText() + " " + "é inválido, digite novamente o CPF.",null, JOptionPane.ERROR_MESSAGE);
+                    break;
+                } else {
+                    funcionario.cadastrarFuncionario(funcionario);
+                    dispose();
+                }
+            }            
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(CadastrarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
-        dispose();
     }//GEN-LAST:event_SalvarActionPerformed
 
     private void CancelarjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarjButton2ActionPerformed
@@ -343,6 +353,11 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
                 new CadastrarFuncionario().setVisible(true);
             }
         });
+    }
+    
+    //Validação do CPF
+    boolean verificaCPF (String cpf) {
+        return ValidaCPF.calculaCPF(cpf);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

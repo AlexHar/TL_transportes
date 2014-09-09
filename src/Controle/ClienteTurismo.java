@@ -5,6 +5,7 @@
  */
 package Controle;
 
+import ChavePrimaria.CpfPK;
 import Modelo.ClienteTurismoDAO;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -23,11 +25,11 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="Cliente")
-@PrimaryKeyJoinColumn (name="id_pessoa")
+@IdClass (value=CpfPK.class)
 public class ClienteTurismo implements Serializable {
     
     private static final long serialVersionUID = 1L;
-    @Id
+    /*@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -37,13 +39,14 @@ public class ClienteTurismo implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
+    }*/
     
     private String nome;
 
     private int rg;
 
-    private int cpf;
+    @Id
+    private String cpf;
 
     private String endereco;
     
@@ -73,11 +76,11 @@ public class ClienteTurismo implements Serializable {
         this.rg = rg;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -149,7 +152,7 @@ public class ClienteTurismo implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (cpf != null ? cpf.hashCode() : 0);
         return hash;
     }
 
@@ -160,12 +163,12 @@ public class ClienteTurismo implements Serializable {
             return false;
         }
         ClienteTurismo other = (ClienteTurismo) object;
-        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
+        return (this.cpf != null || other.cpf == null) && (this.cpf == null || this.cpf.equals(other.cpf));
     }
 
     @Override
     public String toString() {
-        return "Modelo.Pessoa[ id=" + id + " ]";
+        return "Modelo.Pessoa[ id=" + cpf + " ]";
     }
 
 }

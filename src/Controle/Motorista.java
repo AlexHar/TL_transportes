@@ -5,6 +5,7 @@
  */
 
 package Controle;
+import ChavePrimaria.CpfPK;
 import Modelo.MotoristaDAO;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -12,13 +13,14 @@ import javax.persistence.*;
 
 @Entity
 @Table (name = "Motorista")
+@IdClass (value=CpfPK.class)
 
 public class Motorista implements Serializable {
 
     
     private static final long serialVersionUID = 1L;
     
-    @Id
+    /*@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -28,13 +30,14 @@ public class Motorista implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
+    }*/
     
     private String nome;
 
     private int rg;
 
-    private int cpf;
+    @Id
+    private String cpf;
 
     private String endereco;
     
@@ -94,11 +97,11 @@ public class Motorista implements Serializable {
         this.rg = rg;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -165,7 +168,7 @@ public class Motorista implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (cpf != null ? cpf.hashCode() : 0);
         return hash;
     }
 
@@ -176,12 +179,12 @@ public class Motorista implements Serializable {
             return false;
         }
         Motorista other = (Motorista) object;
-        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
+        return (this.cpf != null || other.cpf == null) && (this.cpf == null || this.cpf.equals(other.cpf));
     }
 
     @Override
     public String toString() {
-        return "Modelo.Motorista[ id=" + id + " ]";
+        return "Modelo.Motorista[ id=" + cpf + " ]";
     }
     
     

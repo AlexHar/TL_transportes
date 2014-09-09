@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -24,26 +22,30 @@ import javax.persistence.Id;
 @Entity
 public class Pecas implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
+    /*@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long id;*/
     
     private String nomePeca;
+    
     private String tipoPeca;
-    private int codigoPeca;
+    
+    @Id
+    private String codigoPeca;
+    
     private double valorPeca;
     
     static List<Pecas> pecas = new ArrayList();
 
   
 
-    public Long getId() {
+    /*public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
+    }*/
 
     public String getNomePeca() {
         return nomePeca;
@@ -61,11 +63,11 @@ public class Pecas implements Serializable {
         this.tipoPeca = tipoPeca;
     }
 
-    public int getCodigoPeca() {
+    public String getCodigoPeca() {
         return codigoPeca;
     }
 
-    public void setCodigoPeca(int codigoPeca) {
+    public void setCodigoPeca(String codigoPeca) {
         this.codigoPeca = codigoPeca;
     }
 
@@ -102,7 +104,7 @@ public class Pecas implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (codigoPeca != null ? codigoPeca.hashCode() : 0);
         return hash;
     }
 
@@ -113,7 +115,7 @@ public class Pecas implements Serializable {
             return false;
         }
         Pecas other = (Pecas) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.codigoPeca == null && other.codigoPeca != null) || (this.codigoPeca != null && !this.codigoPeca.equals(other.codigoPeca))) {
             return false;
         }
         return true;
@@ -121,7 +123,7 @@ public class Pecas implements Serializable {
 
     @Override
     public String toString() {
-        return "Modelo.Pecas[ id=" + id + " ]";
+        return "Modelo.Pecas[ id=" + codigoPeca + " ]";
     }
     
 }
