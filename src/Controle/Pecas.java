@@ -6,6 +6,7 @@
 
 package Controle;
 
+import ChavePrimaria.CpfPK;
 import Modelo.PecasDAO;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -14,12 +15,14 @@ import java.util.Collection;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 
 /**
  *
  * @author Guilherme
  */
 @Entity
+@IdClass (value=CpfPK.class)
 public class Pecas implements Serializable {
     private static final long serialVersionUID = 1L;
     /*@Id
