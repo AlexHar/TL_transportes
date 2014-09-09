@@ -12,7 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -21,16 +20,115 @@ import javax.persistence.Table;
  */
 @Entity
 @Table (name="funcionario")
-@PrimaryKeyJoinColumn (name="id_pessoa")
-public class Funcionario extends Pessoa implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+public class Funcionario implements Serializable {
+
+private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+        
+    private String nome;
+
+    private int rg;
+
+    private int cpf;
+
+    private String endereco;
     
-    private int tipo;
+    private int nEndereco;
 
+    private String cidade;
+
+    private String estado;
+
+    private int telefone;
+
+    private String nascimento;
+    
     private String cargo;
-
+    
     private double salario;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getRg() {
+        return rg;
+    }
+
+    public void setRg(int rg) {
+        this.rg = rg;
+    }
+
+    public int getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(int cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public int getnEndereco() {
+        return nEndereco;
+    }
+
+    public void setnEndereco(int nEndereco) {
+        this.nEndereco = nEndereco;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public int getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(int telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getNascimento() {
+        return nascimento;
+    }
+
+    public void setNascimento(String nascimento) {
+        this.nascimento = nascimento;
+    }
 
     public String getCargo() {
         return cargo;
@@ -47,14 +145,10 @@ public class Funcionario extends Pessoa implements Serializable {
     public void setSalario(double salario) {
         this.salario = salario;
     }
-
-    public int getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
-    }
+    
+    
+    
+    
     
     public void cadastrarFuncionario(Funcionario P) throws SQLException, ClassNotFoundException {
         FuncionarioDAO.cadastrar(P);
@@ -67,7 +161,7 @@ public class Funcionario extends Pessoa implements Serializable {
     public void consultarFuncionario(Funcionario P) throws SQLException, ClassNotFoundException {
         FuncionarioDAO.consultar(P);
     }
-/*
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -82,15 +176,12 @@ public class Funcionario extends Pessoa implements Serializable {
             return false;
         }
         Funcionario other = (Funcionario) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
     }
 
     @Override
     public String toString() {
-        return "Modelo.Funcion\u00e1rio[ id=" + id + " ]";
-    }*/
+        return "Modelo.Funcionario[ id=" + id + " ]";
+    }
 
 }

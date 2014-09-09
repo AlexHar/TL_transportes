@@ -148,7 +148,7 @@ public class Empresa {
         EmpresaDAO.consultar(E);
     }
 
-    public void atualizarCliente(Cliente P) throws SQLException, ClassNotFoundException {
+    public void atualizarCliente(ClienteTurismo P) throws SQLException, ClassNotFoundException {
         EmpresaDAO.atualizar(P);
     }
     

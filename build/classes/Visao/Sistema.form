@@ -59,7 +59,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="clienteMenu">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Clientes"/>
+                <Property name="text" type="java.lang.String" value="Clientes de Turismo"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clienteMenuActionPerformed"/>
@@ -67,7 +67,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="escolaresMenu">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Escolares"/>
+                <Property name="text" type="java.lang.String" value="Clientes Escolares"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="escolaresMenuActionPerformed"/>

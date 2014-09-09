@@ -8,8 +8,6 @@ package Modelo;
 import Controle.Conexao;
 import Controle.Veiculo;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;

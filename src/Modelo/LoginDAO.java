@@ -6,7 +6,7 @@
 
 package Modelo;
 
-import Controle.Cliente;
+import Controle.ClienteTurismo;
 import Controle.Conexao;
 import Controle.Login;
 import Controle.Veiculo;

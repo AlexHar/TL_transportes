@@ -114,7 +114,7 @@ public class Sistema extends javax.swing.JFrame {
         cadastro.setText("Cadastros");
         cadastro.setFont(new java.awt.Font("Liberation Sans", 1, 16)); // NOI18N
 
-        clienteMenu.setText("Clientes");
+        clienteMenu.setText("Clientes de Turismo");
         clienteMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clienteMenuActionPerformed(evt);
@@ -122,7 +122,7 @@ public class Sistema extends javax.swing.JFrame {
         });
         cadastro.add(clienteMenu);
 
-        escolaresMenu.setText("Escolares");
+        escolaresMenu.setText("Clientes Escolares");
         escolaresMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 escolaresMenuActionPerformed(evt);

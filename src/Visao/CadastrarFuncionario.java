@@ -6,7 +6,6 @@
 
 package Visao;
 
-import Controle.Cliente;
 import Controle.Funcionario;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -296,7 +295,6 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
             Logger.getLogger(CadastrarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
        
-        JOptionPane.showMessageDialog(this, "fdhgfdghf");
         dispose();
     }//GEN-LAST:event_SalvarActionPerformed
 

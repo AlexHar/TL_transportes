@@ -6,9 +6,8 @@
 package Modelo;
 
 //import Modelo.Conexao;
-import Controle.Cliente;
+import Controle.ClienteEscolar;
 import Controle.Conexao;
-import Controle.Pessoa;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -21,16 +20,16 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-public class ClienteDAO {
+public class ClienteEscolarDAO {
     
     static String status = "";
     Connection con = Conexao.conexao();
-    static List<Cliente> clientes = new ArrayList();
-    static List<Pessoa> pessoas = new ArrayList();
-    static List<Cliente> clienteRetorno = new ArrayList();
+    static List<ClienteEscolar> clientes = new ArrayList();
+    //static List<Pessoa> pessoas = new ArrayList();
+    static List<ClienteEscolar> clienteRetorno = new ArrayList();
     
     
-    public static void cadastrar(Cliente C) throws SQLException {
+    public static void cadastrar(ClienteEscolar C) throws SQLException {
         try {
             EntityManagerFactory fac = Persistence.createEntityManagerFactory("TLTransportesPU");
             EntityManager em = fac.createEntityManager();
@@ -44,7 +43,7 @@ public class ClienteDAO {
         }
     }
 
-    public static void excluir(Cliente C) throws SQLException {
+    public static void excluir(ClienteEscolar C) throws SQLException {
         try {
             EntityManagerFactory fac = Persistence.createEntityManagerFactory("TLTransportesPU");
             EntityManager em = fac.createEntityManager();
@@ -58,7 +57,7 @@ public class ClienteDAO {
         }
     }
 
-    public static Collection consultar(){
+    /*public static Collection consultar(){
         //List<Veiculo> veiculos;
         long id;
         String cidade;
@@ -102,11 +101,11 @@ public class ClienteDAO {
                 telefone = pe.getTelefone();
                 tipoPessoa = pe.getTipoPessoa();
                 
-                Cliente cli = (Cliente)clientes.get(i);
+                ClienteEscolar cli = (ClienteEscolar)clientes.get(i);
                 //id = cli.getId();
                 servico = cli.getServico();
                 tipo = cli.getTipo();
-                Cliente cliente = new Cliente(servico, tipo, id, nome, rg, cpf, endereco, nEndereco, cidade, estado, telefone, nascimento, tipoPessoa);
+                ClienteEscolar cliente = new ClienteEscolar(servico, tipo, id, nome, rg, cpf, endereco, nEndereco, cidade, estado, telefone, nascimento, tipoPessoa);
                 clienteRetorno.add(cliente);
             }
             return clienteRetorno;
@@ -115,11 +114,11 @@ public class ClienteDAO {
             System.out.println("ta dando erro aqui seu lixo: " + se.getMessage());
         }
         return clienteRetorno;
-    }
+    }*/
         
     
 
-    public static void atualizar(Cliente C) throws SQLException {
+    public static void atualizar(ClienteEscolar C) throws SQLException {
         try {
             try (Connection conexao = Conexao.conexao()) {
                 Statement state = conexao.createStatement();

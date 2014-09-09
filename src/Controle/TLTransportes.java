@@ -23,6 +23,8 @@ public class TLTransportes {
      */
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         //Pessoa P = new Pessoa();
+        
+        
        Inicial i = new Inicial();
        i.setVisible(true);
        i.setLocationRelativeTo(null);

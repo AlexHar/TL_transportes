@@ -248,7 +248,6 @@ public class CadastrarVeiculo extends javax.swing.JFrame {
             Logger.getLogger(CadastrarVeiculo.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        JOptionPane.showMessageDialog(this, "fdhgfdghf");
         dispose();
     }//GEN-LAST:event_SalvarActionPerformed
 

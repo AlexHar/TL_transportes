@@ -3,24 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Controle;
 
+import Modelo.ClienteTurismoDAO;
 import java.io.Serializable;
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 /**
  *
  * @author guitonsic
  */
 @Entity
-@Inheritance (strategy = InheritanceType.JOINED)
-public abstract class Pessoa implements Serializable {
+@Table(name="Cliente")
+@PrimaryKeyJoinColumn (name="id_pessoa")
+public class ClienteTurismo implements Serializable {
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,10 +37,6 @@ public abstract class Pessoa implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-    
-    public Pessoa() {
-        super();
     }
     
     private String nome;
@@ -55,33 +56,6 @@ public abstract class Pessoa implements Serializable {
     private int telefone;
 
     private String nascimento;
-    
-    private String tipoPessoa;
-
-    public Pessoa(Long id, String nome, int rg, int cpf, String endereco, int nEndereco, String cidade, String estado, int telefone, String nascimento, String tipoPessoa) {
-        this.id = id;
-        this.nome = nome;
-        this.rg = rg;
-        this.cpf = cpf;
-        this.endereco = endereco;
-        this.nEndereco = nEndereco;
-        this.cidade = cidade;
-        this.estado = estado;
-        this.telefone = telefone;
-        this.nascimento = nascimento;
-        this.tipoPessoa = tipoPessoa;
-    }
-
-    public String getTipoPessoa() {
-        return tipoPessoa;
-    }
-
-    public void setTipoPessoa(String tipoPessoa) {
-        this.tipoPessoa = tipoPessoa;
-    }
-
-    
-    
     
     public String getNome() {
         return nome;
@@ -154,6 +128,23 @@ public abstract class Pessoa implements Serializable {
     public void setNascimento(String nascimento) {
         this.nascimento = nascimento;
     }
+    
+    public void cadastrarCliente(ClienteTurismo P) throws SQLException, ClassNotFoundException, Exception {
+        ClienteTurismoDAO.cadastrar(P);
+    }
+
+    public void excluirCliente(ClienteTurismo P) throws SQLException, ClassNotFoundException {
+        ClienteTurismoDAO.excluir(P);
+    }
+
+    /*public static Collection consultarCliente(){
+        clientes = (List<Veiculo>) ClienteTurismoDAO.consultar();
+        return clientes;
+    }*/
+
+    public void atualizarCliente(ClienteTurismo P) throws SQLException, ClassNotFoundException {
+        ClienteTurismoDAO.atualizar(P);
+    }
 
     @Override
     public int hashCode() {
@@ -165,19 +156,16 @@ public abstract class Pessoa implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Pessoa)) {
+        if (!(object instanceof ClienteTurismo)) {
             return false;
         }
-        Pessoa other = (Pessoa) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        ClienteTurismo other = (ClienteTurismo) object;
+        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
     }
 
     @Override
     public String toString() {
         return "Modelo.Pessoa[ id=" + id + " ]";
     }
-    
+
 }

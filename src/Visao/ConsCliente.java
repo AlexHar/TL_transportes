@@ -6,9 +6,8 @@
 
 package Visao;
 
-import Controle.Cliente;
-import Controle.Pessoa;
-import Modelo.ClienteDAO;
+import Controle.ClienteTurismo;
+import Modelo.ClienteTurismoDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -19,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  * @author lailson
  */
 public class ConsCliente extends javax.swing.JFrame {
-    Cliente c = new Cliente();
+    ClienteTurismo c = new ClienteTurismo();
     ArrayList lista = new ArrayList();
    // ClienteDAO dao = new ClienteDAO();
     
@@ -315,10 +314,10 @@ public class ConsCliente extends javax.swing.JFrame {
 
     public void atualizaLista(String nome, String cpf, String servico){
         String[] nomesColunas = {"código", "Nome", "CPF", "RG", "Data Nasc.", "Endereço", "Nº:", "Cidade", "Estado", "Telefone", "Servico", "Tipo"};
-        ArrayList lista = new ArrayList((Cliente.consultarCliente()));
+        //ArrayList lista = new ArrayList((ClienteTurismo.consultarCliente()));
         Object[][] dadosVetor = new Object[lista.size()][nomesColunas.length];
         for (int i=0; i<lista.size(); i++){
-            Cliente cli = (Cliente)lista.get(i);
+            ClienteTurismo cli = (ClienteTurismo)lista.get(i);
             dadosVetor[i][0] = cli.getId();
             dadosVetor[i][1] = cli.getNome();
             dadosVetor[i][2] = cli.getCpf();
@@ -329,8 +328,8 @@ public class ConsCliente extends javax.swing.JFrame {
             dadosVetor[i][7] = cli.getCidade();
             dadosVetor[i][8] = cli.getEstado();
             dadosVetor[i][9] = cli.getTelefone();
-            dadosVetor[i][10] = cli.getServico();
-            dadosVetor[i][11] = cli.getTipoPessoa();
+            //dadosVetor[i][10] = cli.getServico();
+            //dadosVetor[i][11] = cli.getTipoPessoa();
         }
         DefaultTableModel modelo = new DefaultTableModel(dadosVetor,nomesColunas);
         tabela.setModel(modelo);

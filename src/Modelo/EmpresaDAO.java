@@ -6,7 +6,7 @@
 
 package Modelo;
 
-import Controle.Cliente;
+import Controle.ClienteTurismo;
 import Controle.Empresa;
 
 /**
@@ -25,7 +25,7 @@ public class EmpresaDAO {
         
     }
 
-    public static void atualizar(Cliente P) {
+    public static void atualizar(ClienteTurismo P) {
         
     }
     
