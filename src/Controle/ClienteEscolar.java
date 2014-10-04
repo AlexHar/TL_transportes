@@ -9,6 +9,9 @@ import ChavePrimaria.CpfPK;
 import Modelo.ClienteEscolarDAO;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import javax.persistence.*;
 
 @Entity
@@ -47,6 +50,8 @@ private static final long serialVersionUID = 1L;
     private int telefone;
 
     private String nascimento;
+    
+    private String servico;
      
     private double mensalidade;
     
@@ -55,7 +60,18 @@ private static final long serialVersionUID = 1L;
     private String nomeResponsavel;
     
     private String cpfResponsavel;
+    
+    static List<ClienteEscolar> escolares = new ArrayList();
 
+    public String getServico() {
+        return servico;
+    }
+
+    public void setServico(String servico) {
+        this.servico = servico;
+    }
+
+    
     public String getNomeResponsavel() {
         return nomeResponsavel;
     }
@@ -166,6 +182,23 @@ private static final long serialVersionUID = 1L;
 
     public void excluirCliente(ClienteEscolar P) throws SQLException, ClassNotFoundException {
         ClienteEscolarDAO.excluir(P);
+    }
+    
+    public void alterarCliente(ClienteEscolar P) throws SQLException, ClassNotFoundException {
+        ClienteEscolarDAO.alterar(P);
+    }
+    
+    public static Collection consultarEscolar(){
+        escolares = (List<ClienteEscolar>) ClienteEscolarDAO.consultarEscolar();
+        return escolares;
+    }
+    public static Collection consultarEscolarCpf(String cpf){
+        escolares = (List<ClienteEscolar>) ClienteEscolarDAO.consultarEscolarCpf(cpf);
+        return escolares;
+    }
+    public static Collection consultarEscolarNome(String nome){
+        escolares = (List<ClienteEscolar>) ClienteEscolarDAO.consultarEscolarNome(nome);
+        return escolares;
     }
         
         @Override

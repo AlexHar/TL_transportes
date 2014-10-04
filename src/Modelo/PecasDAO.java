@@ -50,11 +50,29 @@ public class PecasDAO {
             EntityManager em = fac.createEntityManager();
             EntityTransaction tran = em.getTransaction();
             tran.begin();
+            //C = em.find(Pecas.class,);  
+            C = em.merge(C);
             em.remove(C);
+            em.flush();
             tran.commit();
             em.close();
         } catch (Exception se) {
             throw new SQLException("Erro ao excluir o cliente: " + se.getMessage());
+        }
+    }
+    
+    public static void alterar(Pecas C) throws SQLException {
+        try {
+            EntityManagerFactory fac = Persistence.createEntityManagerFactory("TLTransportesPU");
+            EntityManager em = fac.createEntityManager();
+            EntityTransaction tran = em.getTransaction();
+            tran.begin();
+            em.merge(C);
+            em.flush();
+            tran.commit();
+            em.close();
+        } catch (Exception se) {
+            throw new SQLException("Erro ao alterar o cliente: " + se.getMessage());
         }
     }
 

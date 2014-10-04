@@ -9,7 +9,12 @@ import ChavePrimaria.CpfPK;
 import Modelo.FuncionarioDAO;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
@@ -59,6 +64,8 @@ private static final long serialVersionUID = 1L;
     private String cargo;
     
     private double salario;
+    
+    static List<Funcionario> funcionarios = new ArrayList();
 
     public String getNome() {
         return nome;
@@ -159,9 +166,22 @@ private static final long serialVersionUID = 1L;
     public void excluirFuncionario(Funcionario P) throws SQLException, ClassNotFoundException {
         FuncionarioDAO.excluir(P);
     }
+    
+    public void alterarFuncionario(Funcionario P) throws SQLException, ClassNotFoundException {
+        FuncionarioDAO.alterar(P);
+    }
 
-    public void consultarFuncionario(Funcionario P) throws SQLException, ClassNotFoundException {
-        FuncionarioDAO.consultar(P);
+    public static Collection consultarFuncionario(){
+        funcionarios = (List<Funcionario>) FuncionarioDAO.consultarFuncionario();
+        return funcionarios;
+    }
+    public static Collection consultarFuncionarioCpf(String cpf){
+        funcionarios = (List<Funcionario>) FuncionarioDAO.consultarFuncionarioCpf(cpf);
+        return funcionarios;
+    }
+    public static Collection consultarFuncionarioNome(String nome){
+        funcionarios = (List<Funcionario>) FuncionarioDAO.consultarFuncionarioNome(nome);
+        return funcionarios;
     }
 
     @Override

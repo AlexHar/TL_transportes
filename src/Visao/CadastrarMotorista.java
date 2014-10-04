@@ -18,12 +18,40 @@ import javax.swing.JOptionPane;
  * @author lailson
  */
 public class CadastrarMotorista extends javax.swing.JFrame {
-
+    
+    private Motorista c;
+    private int controlador;
     /**
      * Creates new form CadastrarMotorista
      */
     public CadastrarMotorista() {
         initComponents();
+    }
+    
+    public CadastrarMotorista(Motorista c, int controlador) {
+        initComponents();
+        if (c != null){
+            this.c = c;
+            this.controlador = controlador;
+            preencheEdits();
+        }
+    }
+    
+    public void preencheEdits(){
+        
+        campoCPF.setText(c.getCpf());
+        campoCidade.setText(c.getCidade());
+        campoNome.setText(c.getNome());
+        campoRG.setText(Integer.toString(c.getRg()));
+        campoSalario.setText(Double.toString(c.getSalario()));
+        campoTel.setText(Integer.toString(c.getTelefone()));
+        campoCPF.setText(c.getCpf());
+        campoCidade.setText(c.getCidade());
+        campoData.setText(c.getNascimento());
+        campoEnde.setText(c.getEndereco());
+        campoNumHab.setText(Integer.toString(c.getNumHabilitacao()));  
+        campoTipoHab.setText(c.getTipoHabilitacao());
+        campoUf.setText(c.getEstado());
     }
 
     /**
@@ -305,14 +333,29 @@ public class CadastrarMotorista extends javax.swing.JFrame {
                     break;
                 } else {
                     motorista.cadastrarMotorista(motorista);
+                    
+                    if (controlador == 1) {
+                        motorista.alterarMotorista(motorista);
+                        JOptionPane.showMessageDialog(this, "Motorista atualizado com sucesso!");
+                    } else {
+                        motorista.cadastrarMotorista(motorista);
+                        JOptionPane.showMessageDialog(this, "Motorista cadastrado com sucesso!");
+                    }
+                    
                     dispose();
                 }
             }
+            
+
         } catch (SQLException ex) {
             Logger.getLogger(CadastrarMotorista.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CadastrarMotorista.class.getName()).log(Level.SEVERE, null, ex);
         }
+            
+        
+        
+        //dispose();
     }//GEN-LAST:event_salvarActionPerformed
 
     private void cancelarjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarjButton2ActionPerformed
@@ -358,8 +401,7 @@ public class CadastrarMotorista extends javax.swing.JFrame {
         });
     }
     
-    //Validação do CPF
-    boolean verificaCPF (String cpf) {
+    boolean verificaCPF(String cpf) {
         return ValidaCPF.calculaCPF(cpf);
     }
 

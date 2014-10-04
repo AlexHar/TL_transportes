@@ -8,7 +8,10 @@ package Visao;
 
 import Controle.Pecas;
 import Modelo.PecasDAO;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,6 +31,17 @@ public class ConsPecas extends javax.swing.JFrame {
     public ConsPecas() {
         initComponents();
         atualizaLista();
+    }
+    
+    private Object getSelectedObject() {
+         Object selecionado = null;
+         int linhaSelecionada = tabela.getSelectedRow();
+         if(linhaSelecionada >= 0){
+             selecionado = lista.get(linhaSelecionada);
+         }else{
+             JOptionPane.showMessageDialog(this, "Selecione um elemento da tabela.");
+         }
+         return selecionado;
     }
 
     /**
@@ -192,10 +206,28 @@ public class ConsPecas extends javax.swing.JFrame {
 
     private void excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirActionPerformed
         // TODO add your handling code here:
+        Object o = getSelectedObject();
+        if (o != null){
+            Pecas p = (Pecas)o;
+            try {
+                p.excluirPeca(p);
+            } catch (SQLException ex) {
+                Logger.getLogger(ConsPecas.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ConsPecas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        JOptionPane.showMessageDialog(rootPane, "Peça Excluído.");
+        atualizaLista();
     }//GEN-LAST:event_excluirActionPerformed
-
+    
     private void alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarActionPerformed
         // TODO add your handling code here:
+        Object o = getSelectedObject();
+        if (o != null){
+            Pecas p = (Pecas)o;
+            new CadastrarPecas(p, 1).setVisible(true);
+        }
     }//GEN-LAST:event_alterarActionPerformed
 
     private void atualizaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizaActionPerformed
@@ -282,7 +314,7 @@ public class ConsPecas extends javax.swing.JFrame {
         DefaultTableModel modelo = new DefaultTableModel(dadosVetor,nomesColunas);
         tabela.setModel(modelo);
         if(lista.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Não existe Peças cadastrados!!!");
+            JOptionPane.showMessageDialog(this, "Não existem peças cadastradas.");
         }
     }
     
@@ -302,7 +334,7 @@ public class ConsPecas extends javax.swing.JFrame {
         DefaultTableModel modelo = new DefaultTableModel(dadosVetor,nomesColunas);
         tabela.setModel(modelo);
         if(lista.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Não foram encontradas Peças com o código: " + codigo);
+            JOptionPane.showMessageDialog(this, "Não foram encontradas peças com o código: " + codigo);
             atualizaLista();
         }
     }

@@ -19,11 +19,41 @@ import javax.swing.JOptionPane;
  */
 public class CadastrarEscolar extends javax.swing.JFrame {
 
+    private ClienteEscolar c;
+    private int controlador;
+    
     /**
      * Creates new form CadastrarEscolar
      */
     public CadastrarEscolar() {
         initComponents();
+        controlador = 0;
+    }
+    
+    public CadastrarEscolar(ClienteEscolar c, int controlador) {
+        initComponents();
+        if (c != null){
+            this.c = c;
+            this.controlador = controlador;
+            preencheEdits();
+        }
+    }
+    
+    public void preencheEdits(){
+        
+        campoCPF.setText(c.getCpf());
+        campoCPFResp.setText(c.getCpfResponsavel());
+        campoCidade.setText(c.getCidade());
+        campoData.setText(c.getNascimento());
+        campoEnde.setText(c.getEndereco());
+        campoEscola.setText(c.getNomeEscola());
+        campoMensalidade.setText(Double.toString(c.getMensalidade()));
+        campoNome.setText(c.getNome());
+        campoNomeResp.setText(c.getNomeResponsavel());
+        campoNumEnde.setText(Integer.toString(c.getnEndereco()));
+        campoRG.setText(Integer.toString(c.getRg()));
+        campoTel.setText(Integer.toString(c.getTelefone()));
+        campoUf.setText(c.getEstado()); 
     }
 
     /**
@@ -286,7 +316,7 @@ public class CadastrarEscolar extends javax.swing.JFrame {
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
         // TODO add your handling code here:
-        boolean flagCpf = false;
+boolean flagCpf = false;
         boolean flagCpfResponsavel = false;
         try {
             ClienteEscolar cliente = new ClienteEscolar();
@@ -323,14 +353,28 @@ public class CadastrarEscolar extends javax.swing.JFrame {
                     break;
                 } else {
                     cliente.cadastrarCliente(cliente);
+                    
+                    if (controlador == 1){
+                        cliente.alterarCliente(cliente);
+                        JOptionPane.showMessageDialog(this, "Estudante atualizado com sucesso!");
+                    } else {
+                        cliente.cadastrarCliente(cliente);
+                        JOptionPane.showMessageDialog(this, "Estudante cadastrado com sucesso!");
+                    }
+                    
                     dispose();
                 }
-            }       
+            }
+            
+
+ 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CadastrarEscolar.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(CadastrarEscolar.class.getName()).log(Level.SEVERE, null, ex);
         }
+                    
+        //dispose();
     }//GEN-LAST:event_salvarActionPerformed
 
     private void cancelarjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarjButton2ActionPerformed

@@ -9,6 +9,8 @@ package Visao;
 import Controle.ClienteTurismo;
 import Validacoes.ValidaCPF;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -18,12 +20,37 @@ import javax.swing.JOptionPane;
  * @author guitonsic
  */
 public class CadastrarCliente extends javax.swing.JFrame {
+    
+    private ClienteTurismo c;
+    private int controlador;
 
+    
     /**
      * Creates new form CadastrarCliente
      */
     public CadastrarCliente() {
         initComponents();
+    }
+    
+    public CadastrarCliente(ClienteTurismo c, int controlador) {
+        initComponents();
+        if (c != null){
+            this.c = c;
+            this.controlador = controlador;
+            preencheEdits();
+        }
+    }
+    
+    public void preencheEdits(){
+        campoCPF.setText(c.getCpf());
+        campoCidade.setText(c.getCidade());
+        campoData.setText(c.getNascimento());
+        campoEnde.setText(c.getEndereco());
+        campoNome.setText(c.getNome());
+        campoNumEnd.setText(Integer.toString(c.getnEndereco()));
+        campoRG.setText(Integer.toString(c.getRg()));
+        campoTel.setText(Integer.toString(c.getTelefone()));
+        campoUf.setText(c.getEstado());
     }
 
     /**
@@ -245,6 +272,8 @@ public class CadastrarCliente extends javax.swing.JFrame {
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
         // TODO add your handling code here:
+        
+        
         boolean flag = false;
         try {
             ClienteTurismo cliente = new ClienteTurismo();
@@ -273,17 +302,27 @@ public class CadastrarCliente extends javax.swing.JFrame {
                     break;
                 } else {
                     cliente.cadastrarCliente(cliente);
+                
+                    if (controlador == 1){
+                        cliente.alterarCliente(cliente);
+                        JOptionPane.showMessageDialog(this, "Cliente atualizado com sucesso!");
+                    } else {
+                        cliente.cadastrarCliente(cliente);
+                        JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso!");
+                    }
                     dispose();
                 }
             }
             
-            
+
             
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(CadastrarCliente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(CadastrarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        //dispose();
     }//GEN-LAST:event_SalvarActionPerformed
 
     /**
@@ -318,10 +357,6 @@ public class CadastrarCliente extends javax.swing.JFrame {
             new CadastrarCliente().setVisible(true);
         });
     }
-    
-    boolean verificaCPF (String cpf) {
-        return ValidaCPF.calculaCPF(cpf);
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancelar;
@@ -348,4 +383,12 @@ public class CadastrarCliente extends javax.swing.JFrame {
     private javax.swing.JLabel txtRG;
     private javax.swing.JLabel txtTelefone;
     // End of variables declaration//GEN-END:variables
+
+    /*private boolean verificaCPF(String text) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }*/
+    
+    boolean verificaCPF (String cpf) {
+        return ValidaCPF.calculaCPF(cpf);
+    }
 }

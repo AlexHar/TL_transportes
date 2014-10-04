@@ -44,11 +44,28 @@ public class VeiculoDAO {
             EntityManager em = fac.createEntityManager();
             EntityTransaction tran = em.getTransaction();
             tran.begin();
+            //C = em.find(Pecas.class,);  
+            C = em.merge(C);
             em.remove(C);
+            em.flush();
             tran.commit();
             em.close();
         } catch (Exception se) {
             throw new SQLException("Erro ao excluir o cliente: " + se.getMessage());
+        }
+    }
+    
+    public static void alterar(Veiculo C) throws SQLException {
+        try {
+            EntityManagerFactory fac = Persistence.createEntityManagerFactory("TLTransportesPU");
+            EntityManager em = fac.createEntityManager();
+            EntityTransaction tran = em.getTransaction();
+            tran.begin();
+            em.merge(C);
+            tran.commit();
+            em.close();
+        } catch (Exception se) {
+            throw new SQLException("Erro ao alterar o veiculo: " + se.getMessage());
         }
     }
     // AQUI COMEÇA A PARTE DE CONSULTAS ------------------------------------------------------------------------------------

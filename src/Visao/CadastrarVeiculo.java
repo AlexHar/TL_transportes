@@ -18,12 +18,33 @@ import javax.swing.JOptionPane;
  * @author lailson
  */
 public class CadastrarVeiculo extends javax.swing.JFrame {
-
+    
+    private Veiculo c;
+    private int controlador;
+    
     /**
      * Creates new form CadastrarVeiculo
      */
     public CadastrarVeiculo() {
         initComponents();
+    }
+    
+    public CadastrarVeiculo(Veiculo c, int controlador) {
+        initComponents();
+        if (c != null){
+            this.c = c;
+            this.controlador = controlador;
+            preencheEdits();
+        }
+    }
+    
+    public void preencheEdits(){
+        campoAno.setText(Integer.toString(c.getAno()));
+        campoCapacidade.setText(Integer.toString(c.getCapacidade()));
+        campoCor.setText(c.getCor());
+        campoModelo.setText(c.getModelo());
+        campoPlaca.setText(c.getPlaca());
+        campoTipo.setText(c.getTipo());
     }
 
     /**
@@ -240,8 +261,15 @@ public class CadastrarVeiculo extends javax.swing.JFrame {
             veiculo.setCor(this.campoCor.getText());
             veiculo.setTipo(this.campoTipo.getText());
             
-            veiculo.cadastrarVeiculo(veiculo);
             
+            if (controlador == 1){
+                veiculo.alterarVeiculo(veiculo);
+                JOptionPane.showMessageDialog(this, "Veículo atualizado com sucesso!");
+                dispose();
+            } else {
+                veiculo.cadastrarVeiculo(veiculo);
+                JOptionPane.showMessageDialog(this, "Veículo cadastrado com sucesso!");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(CadastrarCliente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

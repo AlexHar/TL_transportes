@@ -6,6 +6,7 @@
 
 package Controle;
 
+import ChavePrimaria.CodigoPecaPK;
 import Modelo.PecasDAO;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -14,12 +15,14 @@ import java.util.Collection;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 
 /**
  *
  * @author Guilherme
  */
 @Entity
+@IdClass (value=CodigoPecaPK.class)
 public class Pecas implements Serializable {
     private static final long serialVersionUID = 1L;
     /*@Id
@@ -35,17 +38,17 @@ public class Pecas implements Serializable {
     
     private double valorPeca;
     
+    private int quantidade;
+    
     static List<Pecas> pecas = new ArrayList();
 
-  
-
-    /*public Long getId() {
-        return id;
+    public int getQuantidade() {
+        return quantidade;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }*/
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
 
     public String getNomePeca() {
         return nomePeca;
@@ -85,6 +88,10 @@ public class Pecas implements Serializable {
 
     public void excluirPeca(Pecas P) throws SQLException, ClassNotFoundException {
         PecasDAO.excluir(P);
+    }
+    
+    public void alterarPeca(Pecas P) throws SQLException, ClassNotFoundException {
+        PecasDAO.alterar(P);
     }
 
     public void atualizarPeca(Pecas P) throws SQLException, ClassNotFoundException {

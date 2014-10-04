@@ -9,6 +9,9 @@ import ChavePrimaria.CpfPK;
 import Modelo.MotoristaDAO;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import javax.persistence.*;
 
 @Entity
@@ -56,6 +59,8 @@ public class Motorista implements Serializable {
     private int numHabilitacao;
     
     private String tipoHabilitacao;
+    
+    static List<Motorista> motoristas = new ArrayList();
 
     public double getSalario() {
         return salario;
@@ -157,12 +162,25 @@ public class Motorista implements Serializable {
         MotoristaDAO.cadastrar(P);
     }
 
-    public void excluirFuncionario(Motorista P) throws SQLException, ClassNotFoundException {
+    public void excluirMotorista(Motorista P) throws SQLException, ClassNotFoundException {
         MotoristaDAO.excluir(P);
     }
-
-    public void consultarMotorista(Motorista P) throws SQLException, ClassNotFoundException {
-        MotoristaDAO.consultar(P);
+    
+    public void alterarMotorista(Motorista P) throws SQLException, ClassNotFoundException {
+        MotoristaDAO.alterar(P);
+    }
+    
+    public static Collection consultarMotorista(){
+        motoristas = (List<Motorista>) MotoristaDAO.consultarMotorista();
+        return motoristas;
+    }
+    public static Collection consultarMotoristaCpf(String cpf){
+        motoristas = (List<Motorista>) MotoristaDAO.consultarMotoristaCpf(cpf);
+        return motoristas;
+    }
+    public static Collection consultarMotoristaNome(String nome){
+        motoristas = (List<Motorista>) MotoristaDAO.consultarMotoristaNome(nome);
+        return motoristas;
     }
     
     @Override

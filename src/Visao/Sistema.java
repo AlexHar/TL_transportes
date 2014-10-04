@@ -52,11 +52,13 @@ public class Sistema extends javax.swing.JFrame {
         pagamentoFinanceiro = new javax.swing.JMenuItem();
         consultas = new javax.swing.JMenu();
         clientesConsultas = new javax.swing.JMenuItem();
+        turista = new javax.swing.JMenuItem();
         funcionariosConsultas = new javax.swing.JMenuItem();
+        motorista = new javax.swing.JMenuItem();
+        pecas = new javax.swing.JMenuItem();
         veiculosConsultas = new javax.swing.JMenuItem();
         transporteConsultas = new javax.swing.JMenuItem();
         viagensConsultas = new javax.swing.JMenuItem();
-        pecas = new javax.swing.JMenuItem();
         InfoMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -238,13 +240,21 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        clientesConsultas.setText("Clientes");
+        clientesConsultas.setText("Clientes Escolares");
         clientesConsultas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clientesConsultasActionPerformed(evt);
             }
         });
         consultas.add(clientesConsultas);
+
+        turista.setText("Clientes Turismo");
+        turista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                turistaActionPerformed(evt);
+            }
+        });
+        consultas.add(turista);
 
         funcionariosConsultas.setText("Funcionários");
         funcionariosConsultas.addActionListener(new java.awt.event.ActionListener() {
@@ -253,6 +263,22 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
         consultas.add(funcionariosConsultas);
+
+        motorista.setText("Motoristas");
+        motorista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                motoristaActionPerformed(evt);
+            }
+        });
+        consultas.add(motorista);
+
+        pecas.setText("Peças");
+        pecas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pecasActionPerformed(evt);
+            }
+        });
+        consultas.add(pecas);
 
         veiculosConsultas.setText("Veículos");
         veiculosConsultas.addActionListener(new java.awt.event.ActionListener() {
@@ -277,14 +303,6 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
         consultas.add(viagensConsultas);
-
-        pecas.setText("Peças");
-        pecas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pecasActionPerformed(evt);
-            }
-        });
-        consultas.add(pecas);
 
         jMenuBar1.add(consultas);
 
@@ -332,6 +350,7 @@ public class Sistema extends javax.swing.JFrame {
 
     private void empresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empresaActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_empresaActionPerformed
     
     private void clienteMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clienteMenuActionPerformed
@@ -376,7 +395,7 @@ public class Sistema extends javax.swing.JFrame {
 
     private void escolarServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escolarServicoActionPerformed
         // TODO add your handling code here:
-        TransEscolar cad1 = new TransEscolar();
+        ServicoEscolar cad1 = new ServicoEscolar();
         cad1.setLocationRelativeTo(null);
         cad1.setVisible(true);
         //dispose();
@@ -384,7 +403,7 @@ public class Sistema extends javax.swing.JFrame {
 
     private void viagensServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viagensServicoActionPerformed
         // TODO add your handling code here:
-        Viagem cad1 = new Viagem();
+        ServicoViagem cad1 = new ServicoViagem();
         cad1.setLocationRelativeTo(null);
         cad1.setVisible(true);
         //dispose();
@@ -432,9 +451,9 @@ public class Sistema extends javax.swing.JFrame {
 
     private void clientesConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientesConsultasActionPerformed
         // TODO add your handling code here:
-        ConsCliente cad1 = new ConsCliente();
-        cad1.setLocationRelativeTo(null);
-        cad1.setVisible(true);
+        ConsEscolar esc = new ConsEscolar();
+        esc.setLocationRelativeTo(null);
+        esc.setVisible(true);
         //dispose();
     }//GEN-LAST:event_clientesConsultasActionPerformed
 
@@ -479,7 +498,9 @@ public class Sistema extends javax.swing.JFrame {
 
     private void CadLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadLoginActionPerformed
         // TODO add your handling code here:
-        
+        CadastrarLogin log = new CadastrarLogin();
+        log.setLocationRelativeTo(null);
+        log.setVisible(true);        
     }//GEN-LAST:event_CadLoginActionPerformed
 
     private void consultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultasActionPerformed
@@ -492,6 +513,20 @@ public class Sistema extends javax.swing.JFrame {
         peca.setLocationRelativeTo(null);
         peca.setVisible(true);
     }//GEN-LAST:event_pecasActionPerformed
+
+    private void motoristaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_motoristaActionPerformed
+        // TODO add your handling code here:
+        ConsMotorista mot = new ConsMotorista();
+        mot.setLocationRelativeTo(null);
+        mot.setVisible(true);
+    }//GEN-LAST:event_motoristaActionPerformed
+
+    private void turistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_turistaActionPerformed
+        // TODO add your handling code here:
+        ConsTurista tur = new ConsTurista();
+        tur.setLocationRelativeTo(null);
+        tur.setVisible(true);
+    }//GEN-LAST:event_turistaActionPerformed
 
     
     
@@ -549,6 +584,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JMenuItem funcionariosMenu;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JMenuItem motorista;
     private javax.swing.JMenuItem motoristasMenu;
     private javax.swing.JMenuItem novoRelatorioFinanceiro;
     private javax.swing.JMenuItem pagamentoFinanceiro;
@@ -557,6 +593,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JMenuItem relatorioFinanceiro;
     private javax.swing.JMenu servico;
     private javax.swing.JMenuItem transporteConsultas;
+    private javax.swing.JMenuItem turista;
     private javax.swing.JMenuItem veiculosConsultas;
     private javax.swing.JMenuItem veiculosMenu;
     private javax.swing.JMenuItem viagensConsultas;

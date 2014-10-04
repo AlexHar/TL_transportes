@@ -18,12 +18,39 @@ import javax.swing.JOptionPane;
  * @author lailson
  */
 public class CadastrarFuncionario extends javax.swing.JFrame {
-
+    
+    private Funcionario c;
+    private int controlador; 
+    
     /**
      * Creates new form CadastrarFuncionario
      */
     public CadastrarFuncionario() {
         initComponents();
+    }
+    
+    public CadastrarFuncionario(Funcionario c, int controlador) {
+        initComponents();
+        if (c != null){
+            this.c = c;
+            this.controlador = controlador;
+            preencheEdits();
+        }
+    }
+    
+    public void preencheEdits(){
+        
+        campoCPF.setText(c.getCpf());
+        campoCargo.setText(c.getCargo());
+        campoCidade.setText(c.getCidade());
+        campoEnd.setText(c.getEndereco());
+        campoEstado.setText(c.getEstado());
+        campoNasc.setText(c.getNascimento());
+        campoNome.setText(c.getNome());
+        campoNumEnd.setText(Integer.toString(c.getnEndereco()));
+        campoRG.setText(Integer.toString(c.getRg()));
+        campoSalario.setText(Double.toString(c.getSalario()));
+        campoTel.setText(Integer.toString(c.getTelefone()));  
     }
 
     /**
@@ -300,12 +327,25 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
                     break;
                 } else {
                     funcionario.cadastrarFuncionario(funcionario);
+                    
+                    if (controlador == 1) {
+                        funcionario.alterarFuncionario(funcionario);
+                        JOptionPane.showMessageDialog(this, "Funcionario atualizado com sucesso!");
+                    } else {
+                        funcionario.cadastrarFuncionario(funcionario);
+                        JOptionPane.showMessageDialog(this, "Funcionario cadastrado com sucesso!");
+                    }
+                    
                     dispose();
                 }
-            }            
+            }
+            
+
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(CadastrarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
+        //dispose();
     }//GEN-LAST:event_SalvarActionPerformed
 
     private void CancelarjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarjButton2ActionPerformed
@@ -355,7 +395,6 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         });
     }
     
-    //Validação do CPF
     boolean verificaCPF (String cpf) {
         return ValidaCPF.calculaCPF(cpf);
     }

@@ -9,14 +9,12 @@ import ChavePrimaria.CpfPK;
 import Modelo.ClienteTurismoDAO;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -60,10 +58,22 @@ public class ClienteTurismo implements Serializable {
 
     private String nascimento;
     
+    private String Servico;
+    
+    static List<ClienteTurismo> turista = new ArrayList();
+    
     public String getNome() {
         return nome;
     }
 
+    public String getServico() {
+        return Servico;
+    }
+
+    public void setServico(String Servico) {
+        this.Servico = Servico;
+    }
+    
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -139,11 +149,23 @@ public class ClienteTurismo implements Serializable {
     public void excluirCliente(ClienteTurismo P) throws SQLException, ClassNotFoundException {
         ClienteTurismoDAO.excluir(P);
     }
+    
+    public void alterarCliente(ClienteTurismo P) throws SQLException, ClassNotFoundException {
+        ClienteTurismoDAO.alterar(P);
+    }
 
-    /*public static Collection consultarCliente(){
-        clientes = (List<Veiculo>) ClienteTurismoDAO.consultar();
-        return clientes;
-    }*/
+    public static Collection consultarTurista(){
+        turista = (List<ClienteTurismo>) ClienteTurismoDAO.consultarTurista();
+        return turista;
+    }
+    public static Collection consultarTuristaCpf(String cpf){
+        turista = (List<ClienteTurismo>) ClienteTurismoDAO.consultarTuristaCpf(cpf);
+        return turista;
+    }
+    public static Collection consultarTuristaNome(String nome){
+        turista = (List<ClienteTurismo>) ClienteTurismoDAO.consultarTuristaNome(nome);
+        return turista;
+    }
 
     public void atualizarCliente(ClienteTurismo P) throws SQLException, ClassNotFoundException {
         ClienteTurismoDAO.atualizar(P);

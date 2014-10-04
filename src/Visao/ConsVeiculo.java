@@ -8,7 +8,10 @@ package Visao;
 
 import Controle.Veiculo;
 import static Validacoes.ValidaPlaca.calculaPlaca;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,6 +30,17 @@ public class ConsVeiculo extends javax.swing.JFrame {
     public ConsVeiculo() {
         initComponents();
         atualizaLista();
+    }
+    
+    private Object getSelectedObject() {
+         Object selecionado = null;
+         int linhaSelecionada = tabela.getSelectedRow();
+         if(linhaSelecionada >= 0){
+             selecionado = lista.get(linhaSelecionada);
+         }else{
+             JOptionPane.showMessageDialog(this, "Selecione um elemento da tabela.");
+         }
+         return selecionado;
     }
 
     /**
@@ -94,8 +108,18 @@ public class ConsVeiculo extends javax.swing.JFrame {
         });
 
         excluir.setText("Excluir");
+        excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirActionPerformed(evt);
+            }
+        });
 
         alterar.setText("Alterar");
+        alterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alterarActionPerformed(evt);
+            }
+        });
 
         atualiza.setText("Lista Completa");
         atualiza.addActionListener(new java.awt.event.ActionListener() {
@@ -219,6 +243,32 @@ public class ConsVeiculo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_bPlacaActionPerformed
 
+    private void alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarActionPerformed
+        // TODO add your handling code here:
+        Object o = getSelectedObject();
+        if (o != null){
+            Veiculo p = (Veiculo)o;
+            new CadastrarVeiculo(p, 1).setVisible(true);
+        }
+    }//GEN-LAST:event_alterarActionPerformed
+
+    private void excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirActionPerformed
+        // TODO add your handling code here:
+        Object o = getSelectedObject();
+        if (o != null){
+            Veiculo p = (Veiculo)o;
+            try {
+                p.excluirVeiculo(p);
+            } catch (SQLException ex) {
+                Logger.getLogger(ConsVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ConsVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        JOptionPane.showMessageDialog(rootPane, "Veículo Excluído.");
+        atualizaLista();
+    }//GEN-LAST:event_excluirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -272,40 +322,40 @@ public class ConsVeiculo extends javax.swing.JFrame {
     private void atualizaLista() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         //v = new Veiculo();
-        String[] nomesColunas = {"Código", "Placa", "Ano", "Modelo", "Tipo", "Capacidade", "Cor"};
+        String[] nomesColunas = {"Placa", "Ano", "Modelo", "Tipo", "Capacidade", "Cor"};
         lista = new ArrayList(Veiculo.consultarVeiculo());
         Object[][] dadosVetor = new Object[lista.size()][nomesColunas.length];
         for (int i=0; i<lista.size(); i++){
             Veiculo vei = (Veiculo)lista.get(i);
-            dadosVetor[i][0] = vei.getId();
-            dadosVetor[i][1] = vei.getPlaca();
-            dadosVetor[i][2] = vei.getAno();
-            dadosVetor[i][3] = vei.getModelo();
-            dadosVetor[i][4] = vei.getTipo();
-            dadosVetor[i][5] = vei.getCapacidade();
-            dadosVetor[i][6] = vei.getCor();
+            //dadosVetor[i][0] = vei.getId();
+            dadosVetor[i][0] = vei.getPlaca();
+            dadosVetor[i][1] = vei.getAno();
+            dadosVetor[i][2] = vei.getModelo();
+            dadosVetor[i][3] = vei.getTipo();
+            dadosVetor[i][4] = vei.getCapacidade();
+            dadosVetor[i][5] = vei.getCor();
         }
         DefaultTableModel modelo = new DefaultTableModel(dadosVetor,nomesColunas);
         tabela.setModel(modelo);
         if(lista.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Não existe Veículos cadastrados!!!");
+            JOptionPane.showMessageDialog(this, "Não existem Veículos cadastrados.");
         }
         
     }
     
     private void atualizaListaPlaca(String placa) {
-        String[] nomesColunas = {"Código", "Placa", "Ano", "Modelo", "Tipo", "Capacidade", "Cor"};
+        String[] nomesColunas = {"Placa", "Ano", "Modelo", "Tipo", "Capacidade", "Cor"};
         lista = new ArrayList(Veiculo.consultarVeiculoPlaca(placa));
         Object[][] dadosVetor = new Object[lista.size()][nomesColunas.length];
         for (int i=0; i<lista.size(); i++){
             Veiculo vei = (Veiculo)lista.get(i);
-            dadosVetor[i][0] = vei.getId();
-            dadosVetor[i][1] = vei.getPlaca();
-            dadosVetor[i][2] = vei.getAno();
-            dadosVetor[i][3] = vei.getModelo();
-            dadosVetor[i][4] = vei.getTipo();
-            dadosVetor[i][5] = vei.getCapacidade();
-            dadosVetor[i][6] = vei.getCor();
+            //dadosVetor[i][0] = vei.getId();
+            dadosVetor[i][0] = vei.getPlaca();
+            dadosVetor[i][1] = vei.getAno();
+            dadosVetor[i][2] = vei.getModelo();
+            dadosVetor[i][3] = vei.getTipo();
+            dadosVetor[i][4] = vei.getCapacidade();
+            dadosVetor[i][5] = vei.getCor();
         }
         DefaultTableModel modelo = new DefaultTableModel(dadosVetor,nomesColunas);
         tabela.setModel(modelo);

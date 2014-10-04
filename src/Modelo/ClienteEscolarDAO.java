@@ -24,9 +24,7 @@ public class ClienteEscolarDAO {
     
     static String status = "";
     Connection con = Conexao.conexao();
-    static List<ClienteEscolar> clientes = new ArrayList();
-    //static List<Pessoa> pessoas = new ArrayList();
-    static List<ClienteEscolar> clienteRetorno = new ArrayList();
+    static List<ClienteEscolar> escolar = new ArrayList();
     
     
     public static void cadastrar(ClienteEscolar C) throws SQLException {
@@ -49,74 +47,69 @@ public class ClienteEscolarDAO {
             EntityManager em = fac.createEntityManager();
             EntityTransaction tran = em.getTransaction();
             tran.begin();
+            //C = em.find(Pecas.class,);  
+            C = em.merge(C);
             em.remove(C);
+            em.flush();
             tran.commit();
             em.close();
         } catch (Exception se) {
             throw new SQLException("Erro ao excluir o cliente: " + se.getMessage());
         }
     }
+    
+    public static void alterar(ClienteEscolar C) throws SQLException {
+        try {
+            EntityManagerFactory fac = Persistence.createEntityManagerFactory("TLTransportesPU");
+            EntityManager em = fac.createEntityManager();
+            EntityTransaction tran = em.getTransaction();
+            tran.begin();
+            em.merge(C);
+            em.flush();
+            tran.commit();
+            em.close();
+        } catch (Exception se) {
+            throw new SQLException("Erro ao alterar o cliente: " + se.getMessage());
+        }
+    }
+    
 
-    /*public static Collection consultar(){
-        //List<Veiculo> veiculos;
-        long id;
-        String cidade;
-        int cpf;
-        String endereco;
-        String estado;
-        int nEndereco;
-        String nascimento;
-        String nome;
-        int rg;
-        int telefone;
-        String servico;
-        int tipo;
-        String tipoPessoa;
-        
-        
+    public static Collection consultarEscolar(){
+       try {
             EntityManagerFactory factory = Persistence.createEntityManagerFactory("TLTransportesPU");
             EntityManager manager = factory.createEntityManager();
-            String tip = "Cliente";
-            Query queryPessoa = manager.createQuery("SELECT e FROM Pessoa e where e.tipoPessoa='" + tip + "'");
-            System.out.println(queryPessoa);
-            Query queryCliente = manager.createQuery("SELECT e FROM Cliente e");
-            pessoas = queryPessoa.getResultList();
-            System.out.println(pessoas);
-            clientes = queryCliente.getResultList();
-            System.out.println(clientes);
-                        try {
-            for (int i=0; i<pessoas.size(); i++){
-                
-                Pessoa pe = (Pessoa)pessoas.get(i);
-                id = pe.getId();
-                System.out.println(id);
-                cidade = pe.getCidade();
-                cpf = pe.getCpf();
-                endereco = pe.getEndereco();
-                estado = pe.getEstado();
-                nEndereco = pe.getnEndereco();
-                nascimento = pe.getNascimento();
-                nome = pe.getNome();
-                rg = pe.getRg();
-                telefone = pe.getTelefone();
-                tipoPessoa = pe.getTipoPessoa();
-                
-                ClienteEscolar cli = (ClienteEscolar)clientes.get(i);
-                //id = cli.getId();
-                servico = cli.getServico();
-                tipo = cli.getTipo();
-                ClienteEscolar cliente = new ClienteEscolar(servico, tipo, id, nome, rg, cpf, endereco, nEndereco, cidade, estado, telefone, nascimento, tipoPessoa);
-                clienteRetorno.add(cliente);
-            }
-            return clienteRetorno;
+            Query query = manager.createQuery("SELECT c FROM ClienteEscolar c");
+            escolar = query.getResultList();
+            return escolar;
         } catch (Exception se) {
-            String status = ("Erro ao pesquisar o cliente: " + se.getMessage());
-            System.out.println("ta dando erro aqui seu lixo: " + se.getMessage());
+            String status = ("Erro ao pesquisar o Cliente: " + se.getMessage());
         }
-        return clienteRetorno;
-    }*/
-        
-    
+        return escolar;
+    }
+    public static Collection consultarEscolarCpf(String cpf){
+       try {
+            EntityManagerFactory factory = Persistence.createEntityManagerFactory("TLTransportesPU");
+            EntityManager manager = factory.createEntityManager();
+            Query query = manager.createQuery("SELECT e FROM ClienteEscolar e where e.cpf='" + cpf + "'");
+            escolar = query.getResultList();
+            return escolar;
+        } catch (Exception se) {
+            String status = ("Erro ao pesquisar o Cliente: " + se.getMessage());
+        }
+        return escolar;
+    }
+    public static Collection consultarEscolarNome(String nome){
+       try {
+            EntityManagerFactory factory = Persistence.createEntityManagerFactory("TLTransportesPU");
+            EntityManager manager = factory.createEntityManager();
+            Query query = manager.createQuery("SELECT e FROM ClienteEscolar e where e.nome='" + nome + "'");
+            escolar = query.getResultList();
+            return escolar;
+        } catch (Exception se) {
+            String status = ("Erro ao pesquisar o Cliente: " + se.getMessage());
+        }
+        return escolar;
+    }
 
     public static void atualizar(ClienteEscolar C) throws SQLException {
         try {

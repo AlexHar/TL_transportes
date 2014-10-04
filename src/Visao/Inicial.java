@@ -6,14 +6,19 @@
 
 package Visao;
 
-import Modelo.LoginDAO;
 import Controle.Login;
+import Modelo.LoginDAO;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class Inicial extends javax.swing.JFrame {
 
+    static List<Login> log = new ArrayList();
+    
+    
     /**
+     * 
      * Creates new form Inicial
      */
     public Inicial() {
@@ -125,7 +130,15 @@ public class Inicial extends javax.swing.JFrame {
         try {
             LoginDAO lc = new LoginDAO(); 
             ArrayList<Login> LS = lc.buscarLogin();
-            for (Login l : LS) {
+            log = (List<Login>) LoginDAO.consultarLogin(login, senha);
+            if(log.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "Erro", JOptionPane.ERROR_MESSAGE);
+            }else{
+                Sistema s = new Sistema();
+                s.setVisible(true);
+                s.setLocationRelativeTo(null);
+            }
+            /*for (Login l : LS) {
                 if (l.getLogin().equalsIgnoreCase(login) && l.getSenha().equalsIgnoreCase(senha)) {
                     //this.dispose();
                     Sistema s = new Sistema();
@@ -134,7 +147,7 @@ public class Inicial extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
-            }
+            }*/
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null, "O seguinte erro ocorreu: " + e.getMessage(),"Erro", JOptionPane.ERROR_MESSAGE);
         }

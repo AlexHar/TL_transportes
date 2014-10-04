@@ -6,8 +6,13 @@
 
 package Visao;
 
+import Controle.Funcionario;
 import Controle.Motorista;
+import Validacoes.ValidaCPF;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,7 +22,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ConsFuncionario extends javax.swing.JFrame {
 
-    Motorista m = new Motorista();
     ArrayList lista = new ArrayList();
     
     /**
@@ -25,7 +29,18 @@ public class ConsFuncionario extends javax.swing.JFrame {
      */
     public ConsFuncionario() {
         initComponents();
-        //atualizaLista();
+        atualizaLista("", "");
+    }
+    
+    private Object getSelectedObject() {
+         Object selecionado = null;
+         int linhaSelecionada = tabela.getSelectedRow();
+         if(linhaSelecionada >= 0){
+             selecionado = lista.get(linhaSelecionada);
+         }else{
+             JOptionPane.showMessageDialog(this, "Selecione um elemento da tabela.");
+         }
+         return selecionado;
     }
 
     /**
@@ -48,8 +63,9 @@ public class ConsFuncionario extends javax.swing.JFrame {
         alterar = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        cpf_cli = new javax.swing.JTextField();
+        cpf_fun = new javax.swing.JTextField();
         buscar = new javax.swing.JButton();
+        listacompleta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,8 +90,18 @@ public class ConsFuncionario extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabela);
 
         excluir.setText("Excluir");
+        excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirActionPerformed(evt);
+            }
+        });
 
         alterar.setText("Alterar");
+        alterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alterarActionPerformed(evt);
+            }
+        });
 
         cancelar.setText("Cancelar");
         cancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -93,43 +119,47 @@ public class ConsFuncionario extends javax.swing.JFrame {
             }
         });
 
+        listacompleta.setText("Lista Completa");
+        listacompleta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listacompletaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGap(172, 172, 172)
-                                .addComponent(jLabel23))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGap(143, 143, 143)
-                                .addComponent(alterar)
-                                .addGap(35, 35, 35)
-                                .addComponent(excluir)
-                                .addGap(35, 35, 35)
-                                .addComponent(cancelar)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1)
-                            .addComponent(jSeparator6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel24)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nome_fun)))))
-                .addContainerGap())
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cpf_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(buscar)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator6, javax.swing.GroupLayout.DEFAULT_SIZE, 799, Short.MAX_VALUE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel24)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nome_fun))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cpf_fun, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(listacompleta, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(274, 274, 274)
+                .addComponent(jLabel23)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(alterar)
+                .addGap(35, 35, 35)
+                .addComponent(excluir)
+                .addGap(35, 35, 35)
+                .addComponent(cancelar)
+                .addGap(272, 272, 272))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,8 +174,9 @@ public class ConsFuncionario extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(cpf_cli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buscar))
+                    .addComponent(cpf_fun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscar)
+                    .addComponent(listacompleta))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -181,8 +212,61 @@ public class ConsFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarjButton2ActionPerformed
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-        dispose();
+        String cpf = cpf_fun.getText();
+        String nome = nome_fun.getText();
+        if(cpf.length() > 0 && nome.length() > 0){
+            JOptionPane.showMessageDialog(this, "Digite em apenas um dos campos de busca.");
+            cpf_fun.setText("");
+            nome_fun.setText("");
+        }else if(cpf.length() < 1 && nome.length() < 1){
+            JOptionPane.showMessageDialog(this, "Informe um dos campos de consulta.");
+        }else{
+            if (cpf.length() > 0){
+                if (ValidaCPF.calculaCPF(cpf) == false){
+                    JOptionPane.showMessageDialog(this, "CPF inválido.\nDigite um CPF válido formado por 11 números.");
+                    cpf_fun.setText("");
+                }else{
+                    atualizaLista(cpf, "");
+                    cpf_fun.setText("");
+                    
+                }
+            }else{
+                atualizaLista("", nome);
+                nome_fun.setText("");
+            }
+        }
     }//GEN-LAST:event_buscarActionPerformed
+
+    private void listacompletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listacompletaActionPerformed
+        // TODO add your handling code here:
+        atualizaLista("", "");
+    }//GEN-LAST:event_listacompletaActionPerformed
+
+    private void alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarActionPerformed
+        // TODO add your handling code here:
+        Object o = getSelectedObject();
+        if (o != null){
+            Funcionario p = (Funcionario)o;
+            new CadastrarFuncionario(p, 1).setVisible(true);
+        }
+    }//GEN-LAST:event_alterarActionPerformed
+
+    private void excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirActionPerformed
+        // TODO add your handling code here:
+        Object o = getSelectedObject();
+        if (o != null){
+            Funcionario p = (Funcionario)o;
+            try {
+                p.excluirFuncionario(p);
+            } catch (SQLException ex) {
+                Logger.getLogger(ConsFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ConsFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        JOptionPane.showMessageDialog(rootPane, "Funcionário Excluído.");
+        atualizaLista("", "");
+    }//GEN-LAST:event_excluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,7 +307,7 @@ public class ConsFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton alterar;
     private javax.swing.JButton buscar;
     private javax.swing.JButton cancelar;
-    private javax.swing.JTextField cpf_cli;
+    private javax.swing.JTextField cpf_fun;
     private javax.swing.JButton excluir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel23;
@@ -231,33 +315,47 @@ public class ConsFuncionario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JButton listacompleta;
     private javax.swing.JTextField nome_fun;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
-    /*
-    private void atualizaLista() {
+    
+    private void atualizaLista(String cpf, String nome) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         //v = new Veiculo();
-        String[] nomesColunas = {"Código", "Placa", "Ano", "Modelo", "Tipo", "Capacidade", "Cor"};
-        lista = new ArrayList(Motorista.consultarMotorista());
+        String mensagem = "";
+        if (cpf.length() > 0){
+            lista = new ArrayList(Funcionario.consultarFuncionarioCpf(cpf));
+            mensagem = "Não existem Clientes de Escolar com CPF "+ cpf +" cadastrados.";
+        }else if(nome.length() > 0){
+            lista = new ArrayList(Funcionario.consultarFuncionarioNome(nome));
+            mensagem = "Não existem Clientes de Escolar com nome "+ nome +" cadastrados.";
+        }else{
+            lista = new ArrayList(Funcionario.consultarFuncionario());
+            mensagem = "Não existem Clientes de Escolar cadastrados.";
+        }
+        String[] nomesColunas = {"Nome", "CPF", "RG", "Endereço", "Nº", "Cidade", "Estado", "Telefone", "Data Nascimento", "Cargo", "Salário"};
         Object[][] dadosVetor = new Object[lista.size()][nomesColunas.length];
         for (int i=0; i<lista.size(); i++){
-            Motorista mot = (Motorista)lista.get(i);
-            dadosVetor[i][0] = mot.
-            dadosVetor[i][1] = mot.
-            dadosVetor[i][2] = mot.
-            dadosVetor[i][3] = mot.
-            dadosVetor[i][4] = mot.
-            dadosVetor[i][5] = mot.
-            dadosVetor[i][6] = mot.
+            Funcionario fun = (Funcionario)lista.get(i);
+            //dadosVetor[i][0] = fun.getId();
+            dadosVetor[i][0] = fun.getNome();
+            dadosVetor[i][1] = fun.getCpf();
+            dadosVetor[i][2] = fun.getRg();
+            dadosVetor[i][3] = fun.getEndereco();
+            dadosVetor[i][4] = fun.getnEndereco();
+            dadosVetor[i][5] = fun.getCidade();
+            dadosVetor[i][6] = fun.getEstado();
+            dadosVetor[i][7] = fun.getTelefone();
+            dadosVetor[i][8] = fun.getNascimento();
+            dadosVetor[i][9] = fun.getCargo();
+            dadosVetor[i][10] = fun.getSalario();
         }
         DefaultTableModel modelo = new DefaultTableModel(dadosVetor,nomesColunas);
         tabela.setModel(modelo);
         if(lista.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Não existe Veículos cadastrados!!!");
+            JOptionPane.showMessageDialog(this, mensagem);
         }
-        
-    }*/
 
-
+    }
 }

@@ -17,12 +17,33 @@ import javax.swing.JOptionPane;
  * @author Guilherme
  */
 public class CadastrarPecas extends javax.swing.JFrame {
-
+    
+    private Pecas c;
+    private int controlador;
+    
     /**
      * Creates new form CadastrarPecas
      */
     public CadastrarPecas() {
         initComponents();
+    }
+    
+    public CadastrarPecas(Pecas c, int controlador) {
+        initComponents();
+        if (c != null){
+            this.c = c;
+            this.controlador = controlador;
+            preencheEdits();
+        }
+    }
+    
+    public void preencheEdits(){
+        
+        campoCodigo.setText(c.getCodigoPeca());
+        campoNome.setText(c.getNomePeca());
+        campoTipo.setText(c.getTipoPeca());
+        campoValor.setText(Double.toString(c.getValorPeca()));
+        
     }
 
     /**
@@ -160,17 +181,19 @@ public class CadastrarPecas extends javax.swing.JFrame {
         peca.setValorPeca(prePecas);
         
         try {
-            peca.cadastrarPeca(peca);
+            if (controlador == 1){
+                peca.alterarPeca(peca);
+                JOptionPane.showMessageDialog(this, "Peça atualizada com sucesso!");
+            } else {
+                peca.cadastrarPeca(peca);
+                JOptionPane.showMessageDialog(this, "Peça cadastrada com sucesso!");
+            }
+            dispose();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CadastrarPecas.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(CadastrarPecas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        JOptionPane.showMessageDialog(this, "fdhgfdghf");
-        dispose();
-        
-        
+        } 
     }//GEN-LAST:event_cadastrarPecasActionPerformed
 
     private void campoTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoTipoActionPerformed

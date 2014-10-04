@@ -5,6 +5,7 @@
  */
 package Controle;
 
+import ChavePrimaria.PlacaPK;
 import Modelo.VeiculoDAO;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -12,23 +13,24 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 
 /**
  *
  * @author guitonsic
  */
 @Entity
+@IdClass (value=PlacaPK.class)
 public class Veiculo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
+    /*@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long id;*/
 
+    @Id
     private String placa;
 
     private int capacidade;
@@ -42,15 +44,7 @@ public class Veiculo implements Serializable {
     private String tipo;
     
     static List<Veiculo> veiculos = new ArrayList();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    
     public String getPlaca() {
         return placa;
     }
@@ -99,26 +93,16 @@ public class Veiculo implements Serializable {
         this.tipo = tipo;
     }
 
-    public Veiculo(Long id, String placa, int capacidade, int ano, String modelo, String cor, String tipo) {
-        this.id = id;
-        this.placa = placa;
-        this.capacidade = capacidade;
-        this.ano = ano;
-        this.modelo = modelo;
-        this.cor = cor;
-        this.tipo = tipo;
-    }
-
-    public Veiculo() {
-    }
-    
-    
     public void cadastrarVeiculo(Veiculo V) throws SQLException, ClassNotFoundException {
         VeiculoDAO.cadastrar(V);
     }
     
     public void excluirVeiculo(Veiculo V) throws SQLException, ClassNotFoundException {
         VeiculoDAO.excluir(V);
+    }
+    
+    public void alterarVeiculo(Veiculo V) throws SQLException, ClassNotFoundException {
+        VeiculoDAO.alterar(V);
     }
     
     public static Collection consultarVeiculo(){
@@ -138,7 +122,7 @@ public class Veiculo implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (placa != null ? placa.hashCode() : 0);
         return hash;
     }
 
@@ -149,7 +133,7 @@ public class Veiculo implements Serializable {
             return false;
         }
         Veiculo other = (Veiculo) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.placa == null && other.placa != null) || (this.placa != null && !this.placa.equals(other.placa))) {
             return false;
         }
         return true;
@@ -157,7 +141,7 @@ public class Veiculo implements Serializable {
 
     @Override
     public String toString() {
-        return "Modelo.Veiculo[ id=" + id + " ]";
+        return "Modelo.Veiculo[ id=" + placa + " ]";
     }
 
 }
