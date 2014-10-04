@@ -5,7 +5,11 @@
  */
 package Controle;
 
+<<<<<<< HEAD
 import ChavePrimaria.PlacaPK;
+=======
+import ChavePrimaria.CpfPK;
+>>>>>>> origin/master
 import Modelo.VeiculoDAO;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -21,7 +25,11 @@ import javax.persistence.IdClass;
  * @author guitonsic
  */
 @Entity
+<<<<<<< HEAD
 @IdClass (value=PlacaPK.class)
+=======
+@IdClass (value=CpfPK.class)
+>>>>>>> origin/master
 public class Veiculo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,7 +52,11 @@ public class Veiculo implements Serializable {
     private String tipo;
     
     static List<Veiculo> veiculos = new ArrayList();
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> origin/master
     public String getPlaca() {
         return placa;
     }
@@ -92,7 +104,11 @@ public class Veiculo implements Serializable {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> origin/master
     public void cadastrarVeiculo(Veiculo V) throws SQLException, ClassNotFoundException {
         VeiculoDAO.cadastrar(V);
     }

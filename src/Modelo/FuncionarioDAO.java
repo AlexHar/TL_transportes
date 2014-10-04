@@ -67,7 +67,16 @@ public class FuncionarioDAO {
             EntityManager em = fac.createEntityManager();
             EntityTransaction tran = em.getTransaction();
             tran.begin();
+<<<<<<< HEAD
             em.merge(F);
+=======
+            List<Funcionario> pe;
+            Query qe = em.createQuery("from Veiculo where nome='" + F.getNome() + "'");
+            pe = qe.getResultList();
+            for (Funcionario p : pe) {
+                System.out.println("ID Veiculo: " + p.getCpf());
+            }
+>>>>>>> origin/master
             tran.commit();
             em.close();
         } catch (Exception se) {
