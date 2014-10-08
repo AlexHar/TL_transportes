@@ -56,7 +56,7 @@ public class PedagioDAO {
             tran.commit();
             em.close();
         } catch (Exception se) {
-            throw new SQLException("Erro ao excluir o cliente: " + se.getMessage());
+            throw new SQLException("Erro ao excluir o pedagio: " + se.getMessage());
         }
     }
     
@@ -71,7 +71,7 @@ public class PedagioDAO {
             tran.commit();
             em.close();
         } catch (Exception se) {
-            throw new SQLException("Erro ao alterar o cliente: " + se.getMessage());
+            throw new SQLException("Erro ao alterar o pedagio: " + se.getMessage());
         }
     }
     
@@ -80,11 +80,11 @@ public class PedagioDAO {
        try {
             EntityManagerFactory factory = Persistence.createEntityManagerFactory("TLTransportesPU");
             EntityManager manager = factory.createEntityManager();
-            Query query = manager.createQuery("SELECT c FROM ClienteEscolar c");
+            Query query = manager.createQuery("SELECT c FROM Pedagio c");
             pedagio = query.getResultList();
             return pedagio;
         } catch (Exception se) {
-            String status = ("Erro ao pesquisar o Cliente: " + se.getMessage());
+            String status = ("Erro ao pesquisar o Pedagio: " + se.getMessage());
         }
         return pedagio;
     }

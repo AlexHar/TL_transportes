@@ -9,6 +9,7 @@ package Visao;
 import Controle.Pedagio;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,11 +17,31 @@ import java.util.logging.Logger;
  */
 public class InserirPadagio extends javax.swing.JFrame {
 
+    private Pedagio c;
+    private int controlador;
     /**
      * Creates new form InserirPadagio
      */
     public InserirPadagio() {
         initComponents();
+        controlador = 0;
+    }
+    
+    public InserirPadagio(Pedagio c, int controlador) {
+        initComponents();
+        if (c != null) {
+            this.c = c;
+            this.controlador = controlador;
+            preencheEdits();
+        }
+    }
+    
+    public void preencheEdits() {
+
+        campoCidade.setText(c.getCidade());
+        campoEstado.setText(c.getEstado());
+        campoValor.setText(Double.toString(c.getValor()));
+        campoNumero.setText(Integer.toString(c.getNumero()));
     }
 
     /**
@@ -170,23 +191,33 @@ public class InserirPadagio extends javax.swing.JFrame {
 
     private void inserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirActionPerformed
         // TODO add your handling code here:
-        Pedagio pedagio = new Pedagio();
-        double valor = Double.parseDouble(this.campoValor.getText());
-        int numero = Integer.parseInt(this.campoNumero.getText());
-        
-        pedagio.setCidade(this.campoCidade.getText());
-        pedagio.setEstado(this.campoEstado.getText());
-        pedagio.setValor(valor);
-        pedagio.setNumero(numero);
-        
         try {
+            Pedagio pedagio = new Pedagio();
+            double valor = Double.parseDouble(this.campoValor.getText());
+            int numero = Integer.parseInt(this.campoNumero.getText());
+
+            pedagio.setCidade(this.campoCidade.getText());
+            pedagio.setEstado(this.campoEstado.getText());
+            pedagio.setValor(valor);
+            pedagio.setNumero(numero);
+
+
             pedagio.cadastrarPedagio(pedagio);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(InserirPadagio.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(InserirPadagio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+            
+            if (controlador == 1) {
+                pedagio.alterarPedagio(pedagio);
+                JOptionPane.showMessageDialog(this, "Pedagio atualizado com sucesso!");
+            } else {
+                pedagio.cadastrarPedagio(pedagio);
+                JOptionPane.showMessageDialog(this, "Pedagio cadastrado com sucesso!");
+            }
+
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(InserirPadagio.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(InserirPadagio.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                    
         dispose();
         
     }//GEN-LAST:event_inserirActionPerformed
