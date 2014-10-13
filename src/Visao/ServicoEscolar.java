@@ -6,74 +6,19 @@
 
 package Visao;
 
-//import Controle.ClienteEscolar;
-import Controle.ClienteEscolar;
-import Controle.Motorista;
-import Controle.PassEscolar;
-import Controle.ServicoEscolarControle;
-import Controle.Veiculo;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-//import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Lailson-pc
  */
 public class ServicoEscolar extends javax.swing.JFrame {
-    
-    ArrayList listaVeiculo = new ArrayList();
-    ArrayList listaMotorista = new ArrayList();
-    ArrayList listaPas = new ArrayList();
-    ArrayList listaPasExcluir = new ArrayList();
-    //ArrayList listaVeioPas = new ArrayList();
-    Long idAtual;
-    
-    private ServicoEscolarControle s;
-    private int controlador;
 
     /**
      * Creates new form ServicoEscolar
      */
     public ServicoEscolar() {
         initComponents();
-        atualiza();
-    }
-    public ServicoEscolar(ServicoEscolarControle s, int controlador, ArrayList listaAlterar){
-        initComponents();
-        if (s != null){
-            for(int i=0; i<listaAlterar.size(); i++){
-                PassEscolar pas = (PassEscolar)listaAlterar.get(i);
-                ClienteEscolar cli = new ClienteEscolar();
-                cli.setCpf(pas.getCpf());
-                cli.setNome(pas.getNome());
-                this.listaPas.add(cli);
-                //this.listaPasExcluir.add(cli);
-            }
-            this.idAtual = s.getId();
-            //this.listaPas = listaAlterar;
-            this.s = s;
-            this.controlador = controlador;
-            preencheEdits();
-        }
-    }
-    public void preencheEdits(){
-        atualiza();
-        veiculo.setSelectedItem(s.getPlacaVeiculo());
-        //mot = mot.substring(mot.length() - 11);
-        for (int i=0; i < motorista.getItemCount(); i++){
-            String mot = motorista.getItemAt(i).toString();// motorista.getSelectedItem().toString();
-            if (mot != "SELECIONE"){
-                String mot2 = mot.substring(mot.length() - 11);
-                if(mot2 == null ? s.getCpfMotorista() == null : mot2.equals(s.getCpfMotorista())){
-                    motorista.setSelectedItem(mot);
-                }
-            }
-        }
-        campoRota.setText(s.getRota());
-        
     }
 
     /**
@@ -88,20 +33,19 @@ public class ServicoEscolar extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
-        veiculo = new javax.swing.JComboBox();
+        jComboBox1 = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        motorista = new javax.swing.JComboBox();
+        jComboBox3 = new javax.swing.JComboBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList();
         jLabel7 = new javax.swing.JLabel();
-        cancelar = new javax.swing.JButton();
-        salvar = new javax.swing.JButton();
-        add = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        campoRota = new javax.swing.JTextField();
-        defRota = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jButton9 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,9 +54,10 @@ public class ServicoEscolar extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
         jLabel19.setText("Cadastro de Transporte Escolar");
 
-        veiculo.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                veiculoActionPerformed(evt);
+                jComboBox1ActionPerformed(evt);
             }
         });
 
@@ -120,102 +65,89 @@ public class ServicoEscolar extends javax.swing.JFrame {
 
         jLabel6.setText("Veiculo utilizado:");
 
-        motorista.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                motoristaActionPerformed(evt);
+                jComboBox3ActionPerformed(evt);
             }
         });
+
+        jList1.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
 
         jLabel7.setText("Lista de Escolares:");
 
-        cancelar.setText("Cancelar");
-        cancelar.addActionListener(new java.awt.event.ActionListener() {
+        jButton6.setText("Cancelar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarjButton2ActionPerformed(evt);
+                jButton6jButton2ActionPerformed(evt);
             }
         });
 
-        salvar.setText("Salvar");
-        salvar.addActionListener(new java.awt.event.ActionListener() {
+        jButton5.setText("Salvar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                salvarActionPerformed(evt);
+                jButton5ActionPerformed(evt);
             }
         });
 
-        add.setText("Adicionar e Mostrar Lista");
-        add.addActionListener(new java.awt.event.ActionListener() {
+        jButton7.setText("Adicionar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addActionPerformed(evt);
+                jButton7ActionPerformed(evt);
             }
         });
 
         jLabel8.setText("Rota:");
 
-        defRota.setText("Definir");
-        defRota.addActionListener(new java.awt.event.ActionListener() {
+        jButton9.setText("Definir");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                defRotajButton2ActionPerformed(evt);
+                jButton9jButton2ActionPerformed(evt);
             }
         });
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jLabel1.setText("* obrigatório");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jLabel2.setText("* obrigatório");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jLabel3.setText("* obrigatório");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addGap(103, 103, 103)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addGap(35, 35, 35)
+                            .addComponent(jLabel19))
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel4Layout.createSequentialGroup()
+                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel6)
+                                        .addComponent(jLabel5)
+                                        .addComponent(jLabel7)
+                                        .addComponent(jLabel8))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jComboBox1, 0, 186, Short.MAX_VALUE)
+                                            .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(jLabel19))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addGap(113, 113, 113)
-                                        .addComponent(salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(58, 58, 58)
-                                        .addComponent(cancelar)))
-                                .addGap(170, 170, 170))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(93, 93, 93)
-                                .addComponent(campoRota, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(defRota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator3)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel7))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(add)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel3))
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(motorista, javax.swing.GroupLayout.Alignment.LEADING, 0, 228, Short.MAX_VALUE)
-                                            .addComponent(veiculo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel1)
-                                            .addComponent(jLabel2))))))))
+                        .addGap(123, 123, 123)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58)
+                        .addComponent(jButton6)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -227,28 +159,27 @@ public class ServicoEscolar extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(veiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(motorista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(add)
-                    .addComponent(jLabel3))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton7)
+                .addGap(13, 13, 13)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(campoRota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(defRota))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton9))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(salvar)
-                    .addComponent(cancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton5)
+                    .addComponent(jButton6))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -258,7 +189,7 @@ public class ServicoEscolar extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,118 +201,35 @@ public class ServicoEscolar extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void defRotajButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_defRotajButton2ActionPerformed
+    private void jButton9jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9jButton2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_defRotajButton2ActionPerformed
+    }//GEN-LAST:event_jButton9jButton2ActionPerformed
 
-    private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        ServicoEscolar esc = new ServicoEscolar();
-        AddPassageiroEscolar addP = new AddPassageiroEscolar(listaPas, esc, "escolar");
-        addP.setLocationRelativeTo(null);
-        addP.setVisible(true);
-        
-        
-    }//GEN-LAST:event_addActionPerformed
+    }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        
-        ///// QUANDO FOR ADICIONAR A ROTA E FOR OBRIGATÓRIO, APENAS COLOCAR MAIS UM IF NO PRÓXIMO IF 
-        ///// DEPOIS DO WHILE E UM IF PRA VER SOMENTE A ROTA
-        
-        boolean verMot = false;
-        boolean verVei = false;
-        boolean verLista = false;
-        try{
-            while(verMot == false && verVei == false && verLista == false){
-                // colocando os valores da tela em variaveis
-                String mot = motorista.getSelectedItem().toString();
-                String vei = veiculo.getSelectedItem().toString();
-                String rota = campoRota.getText();
-
-                if (mot == "SELECIONE" || vei == "SELECIONE" || listaPas.isEmpty()){
-                    if (vei == "SELECIONE"){
-                        verVei = false;
-                        JOptionPane.showMessageDialog(rootPane, "Escolha um Veículo.");
-                        //break;
-                    }if (mot == "SELECIONE"){
-                        verMot = false;
-                        JOptionPane.showMessageDialog(rootPane, "Escolha um Motorista.");
-                    }if (listaPas.isEmpty()){
-                        verLista = false;
-                        JOptionPane.showMessageDialog(rootPane, "A lista de escolares está vazia.");
-                    }
-                    break;
-                }else{
-                    verLista = true;
-                    verMot = true;
-                    verVei = true;
-                    mot = mot.substring(mot.length() - 11);
-                    ServicoEscolarControle servEsc = new ServicoEscolarControle();
-                    servEsc.setPlacaVeiculo(vei);
-                    servEsc.setCpfMotorista(mot);
-                    servEsc.setRota(rota);
-                    servEsc.setId(idAtual);
-
-                    //servEsc.cadastrarServico(servEsc);
-                    
-                    if (controlador == 1){
-                        servEsc.alterarServico(servEsc);
-                        
-                        listaPasExcluir = new ArrayList(PassEscolar.consultarPassageiros(idAtual.toString()));
-                        for (int i=0; i<listaPasExcluir.size(); i++){
-                            PassEscolar p = (PassEscolar)listaPasExcluir.get(i);
-                            p.excluirPassageiro(p);
-                        }
-                        
-                        for (int i=0; i<listaPas.size(); i++){
-                            PassEscolar pass = new PassEscolar();
-                            ClienteEscolar cli = (ClienteEscolar)listaPas.get(i);
-                            
-                            pass.setCpf(cli.getCpf());
-                            pass.setNome(cli.getNome());
-                            pass.setIdServico(servEsc.getId().toString());
-                            
-                            pass.cadastrarPass(pass);
-                        }
-                        JOptionPane.showMessageDialog(this, "Serviço atualizado com sucesso.");
-                    }else{
-                        servEsc.cadastrarServico(servEsc);
-                        // cadastrar lista de passageiros no banco de dados
-                        // PassEscolar pass = new PassEscolar();
-                        for (int i=0; i<listaPas.size(); i++){
-                            PassEscolar pass = new PassEscolar();
-                            ClienteEscolar cli = (ClienteEscolar)listaPas.get(i);
-                            pass.setCpf(cli.getCpf());
-                            pass.setNome(cli.getNome());
-                            pass.setIdServico(servEsc.getId().toString());
-                            pass.cadastrarPass(pass);
-                        }
-                        JOptionPane.showMessageDialog(this, "Serviço salvo com sucesso.");
-                    }
-                    dispose();
-                }
-            }
-        }catch (ClassNotFoundException ex) {
-            Logger.getLogger(ServicoEscolar.class.getName()).log(Level.SEVERE, null, ex);
-        }catch (Exception ex) {
-            Logger.getLogger(ServicoEscolar.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_salvarActionPerformed
-
-    private void cancelarjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarjButton2ActionPerformed
-        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "fdhgfdghf");
         dispose();
-    }//GEN-LAST:event_cancelarjButton2ActionPerformed
+    }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void motoristaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_motoristaActionPerformed
+    private void jButton6jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6jButton2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_motoristaActionPerformed
+        //Cancelar dados = new Cancelar();
+        //dados.setLocationRelativeTo(null);
+        //dados.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton6jButton2ActionPerformed
 
-    private void veiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_veiculoActionPerformed
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_veiculoActionPerformed
+    }//GEN-LAST:event_jComboBox3ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -419,73 +267,21 @@ public class ServicoEscolar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton add;
-    private javax.swing.JTextField campoRota;
-    private javax.swing.JButton cancelar;
-    private javax.swing.JButton defRota;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton9;
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox3;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JComboBox motorista;
-    private javax.swing.JButton salvar;
-    private javax.swing.JComboBox veiculo;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
-    
-    public void atualiza(){
-        atualizaCampoVeiculo();
-        atualizaCampoMotorista();
-        //atualizaTabela(null);
-        
-    }
-    
-    public void atualizaCampoVeiculo(){
-        listaVeiculo = new ArrayList(Veiculo.consultarVeiculo());
-        veiculo.addItem("SELECIONE");
-        for (int i=0; i<listaVeiculo.size(); i++){
-            Veiculo vei = (Veiculo)listaVeiculo.get(i);
-            veiculo.addItem(vei.getPlaca());
-        }
-    }
-    
-    public void atualizaCampoMotorista(){
-        listaMotorista = new ArrayList(Motorista.consultarMotorista());
-        motorista.addItem("SELECIONE");
-        for (int i=0; i<listaMotorista.size(); i++){
-            Motorista mot = (Motorista)listaMotorista.get(i);
-            motorista.addItem(mot.getNome() + " - CPF: " + mot.getCpf());
-        }
-    }
-    
-    public void retornaLista(ArrayList listaPas){
-        this.listaPas = listaPas;
-        //atualizaTabela(this.listaPas);
-        
-    }
-    /*public void atualizaTabela(ArrayList listaPas){
-        System.out.println("tamanho lista servico");
-        String[] nomesColunas = {"Nome", "CPF"};
-        Object[][] dadosVetor = new Object[0][nomesColunas.length];
-        
-        if (listaPas != null && listaPas.size() > 0){
-            
-            System.out.println("entrou");
-            dadosVetor = new Object[listaPas.size()][nomesColunas.length];
-            for (int i=0; i<listaPas.size(); i++){
-                ClienteEscolar cli = (ClienteEscolar)listaPas.get(i);
-                dadosVetor[i][0] = cli.getNome();
-                System.out.println(dadosVetor[i][0]);
-                dadosVetor[i][1] = cli.getCpf();
-                System.out.println(dadosVetor[i][1]);
-            }
-        }
-        DefaultTableModel modelo = new DefaultTableModel(dadosVetor,nomesColunas);
-        this.tabPass.setModel(modelo);
-    }*/
 }

@@ -6,16 +6,6 @@
 
 package Visao;
 
-import Controle.ClienteEscolar;
-import Controle.PagamentoEscolar;
-import Controle.PagamentoTurismo;
-import Validacoes.ValidaCPF;
-import static Validacoes.ValidaData.calculaData;
-import java.awt.Dimension;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,16 +14,11 @@ import javax.swing.JOptionPane;
  */
 public class Pagamento extends javax.swing.JFrame {
 
-    
-    ArrayList listaEscolar = new ArrayList();
-    ArrayList listaTurismo = new ArrayList();
-    private String tipoServico;
     /**
      * Creates new form Pagamento
      */
     public Pagamento() {
         initComponents();
-        atualiza();
     }
 
     /**
@@ -47,33 +32,15 @@ public class Pagamento extends javax.swing.JFrame {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
-        cancelar = new javax.swing.JButton();
-        confirma = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        textoCpf = new javax.swing.JLabel();
-        buscar = new javax.swing.JButton();
-        cpf = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        tipo = new javax.swing.JComboBox();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        nome = new javax.swing.JLabel();
-        SolCpf = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        solValor = new javax.swing.JLabel();
-        tValorpar = new javax.swing.JLabel();
-        tValorParcela = new javax.swing.JLabel();
-        parcelas = new javax.swing.JComboBox();
-        tParcelas = new javax.swing.JLabel();
-        idVia = new javax.swing.JLabel();
-        idViagem = new javax.swing.JLabel();
-        boleto = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        data = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -90,173 +57,28 @@ public class Pagamento extends javax.swing.JFrame {
 
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(115, 117, 118), 3, true));
 
+        jLabel1.setText("Nome do solicitante: ");
+
         jLabel24.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
         jLabel24.setText("Efetuar Pagamento");
 
-        cancelar.setText("Cancelar");
-        cancelar.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Buscar");
+
+        jButton6.setText("Cancelar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarjButton2ActionPerformed(evt);
+                jButton6jButton2ActionPerformed(evt);
             }
         });
 
-        confirma.setText("Confirmar Pagamento");
-        confirma.addActionListener(new java.awt.event.ActionListener() {
+        jLabel2.setText("Valor:");
+
+        jButton2.setText("Confirmar Pagamento");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmaActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Busca"));
-
-        textoCpf.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        textoCpf.setText("*cpf do responsável se tipo serviço for turismo");
-
-        buscar.setText("Buscar");
-        buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("CPF:");
-
-        jLabel5.setText("Tipo Serviço:");
-
-        tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECIONE", "Escolar", "Turismo" }));
-        tipo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tipoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(49, 49, 49)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textoCpf)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buscar)))))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buscar)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textoCpf))
-        );
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Cliente"));
-
-        jLabel1.setText("Nome do solicitante: ");
-
-        jLabel2.setText("CPF:");
-
-        nome.setText("jLabel6");
-
-        SolCpf.setText("jLabel7");
-
-        jLabel8.setText("Valor:");
-
-        solValor.setText("jLabel7");
-
-        tValorpar.setText("jLabel12");
-
-        tValorParcela.setText("Valor Cada Parcela:");
-
-        parcelas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3" }));
-        parcelas.setPreferredSize(new java.awt.Dimension(60, 20));
-        parcelas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                parcelasActionPerformed(evt);
-            }
-        });
-
-        tParcelas.setText("Parcelas:");
-
-        idVia.setText("Id Viagem:");
-
-        idViagem.setText("jLabel7");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(tParcelas)
-                .addGap(28, 28, 28)
-                .addComponent(parcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(tValorParcela)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tValorpar)
-                .addGap(0, 219, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel8))
-                .addGap(37, 37, 37)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(solValor)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(nome)
-                        .addComponent(SolCpf)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(idVia)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(idViagem)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(nome)
-                    .addComponent(idVia)
-                    .addComponent(idViagem))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(SolCpf))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(solValor))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tParcelas)
-                    .addComponent(parcelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tValorParcela)
-                    .addComponent(tValorpar))
-                .addContainerGap())
-        );
-
-        boleto.setText("Gerar Boleto");
-
-        jLabel6.setText("Data referente ao Pagamento:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -266,27 +88,29 @@ public class Pagamento extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator4)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(2, 2, 2)
+                        .addComponent(jTextField1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(154, 154, 154)
                                 .addComponent(jLabel24))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
+                                .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton2)))
+                        .addGap(0, 177, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addComponent(confirma)
-                .addGap(18, 18, 18)
-                .addComponent(boleto)
-                .addGap(18, 18, 18)
-                .addComponent(cancelar)
-                .addContainerGap(104, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton6)
+                .addGap(249, 249, 249))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,19 +118,18 @@ public class Pagamento extends javax.swing.JFrame {
                 .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(confirma)
-                    .addComponent(cancelar)
-                    .addComponent(boleto))
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
+                .addComponent(jButton6)
                 .addContainerGap())
         );
 
@@ -321,154 +144,28 @@ public class Pagamento extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cancelarjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarjButton2ActionPerformed
+    private void jButton6jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6jButton2ActionPerformed
         // TODO add your handling code here:
         //Cancelar dados = new Cancelar();
         //dados.setLocationRelativeTo(null);
         //dados.setVisible(true);
         dispose();
-    }//GEN-LAST:event_cancelarjButton2ActionPerformed
+    }//GEN-LAST:event_jButton6jButton2ActionPerformed
 
-    private void confirmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmaActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if(data.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "O campo data é obrigatório");
-            return;
-        }
-        if(calculaData(data.getText()) == false){
-            JOptionPane.showMessageDialog(null, "Data incorreta.\nDigite uma data do Tipo 'dd/mm/aaaa'.");
-            return;
-        }
-        
-        if (!"".equals(nome.getText())){
-            
-            try {
-                if(tipo.getSelectedItem() == "Escolar"){//tipoServico
-                    String date = data.getText();
-                    String mesAno = date.substring(3, 10);
-                    listaEscolar = new ArrayList(PagamentoEscolar.consultarPagamentoEfetuado(SolCpf.getText(), mesAno));
-                    if(!listaEscolar.isEmpty()){
-                        JOptionPane.showMessageDialog(cpf, "O pagamento ja foi efetuado para este cliente na data informada.\n"
-                                + "Consulte os pagamentos efetuados.");
-                        return;
-                    }
-
-                    PagamentoEscolar pagamento = new PagamentoEscolar();
-                    pagamento.setNome(nome.getText());
-                    pagamento.setValor(Double.parseDouble(solValor.getText()));
-                    pagamento.setCpf(SolCpf.getText());
-                    pagamento.setData(data.getText());
-                    pagamento.cadastrarPagamento(pagamento);
-
-
-                    JOptionPane.showMessageDialog(this, "Pagamento efetuado com sucesso.");
-                }if(tipo.getSelectedItem() == "Turismo"){
-                    String date = data.getText();
-                    String mesAno = date.substring(3, 10);
-                    listaTurismo = new ArrayList(PagamentoEscolar.consultarPagamentoEfetuado(SolCpf.getText(), mesAno));
-                    if(!listaTurismo.isEmpty()){
-                        JOptionPane.showMessageDialog(cpf, "O pagamento ja foi efetuado para este cliente na data informada.\n"
-                                + "Consulte os pagamentos efetuados.");
-                        return;
-                    }
-                    ClienteEscolar esc = (ClienteEscolar)listaTurismo.get(0); // mudar para Viagem
-                    PagamentoTurismo pagamento = new PagamentoTurismo();
-                    pagamento.setNome(nome.getText());
-                    pagamento.setCpf(SolCpf.getText());
-                    //pagamento.setIdViagem(esc.getIdviagem);
-                    pagamento.setValor(Double.parseDouble(solValor.getText()));
-                    pagamento.setParcelas(Integer.parseInt((String) parcelas.getSelectedItem()));
-                    pagamento.setParcelasPaga(1);
-                    pagamento.setData(data.getText());
-                    pagamento.setData(date);
-                    pagamento.cadastrarPagamento(pagamento); 
-                }
-                dispose();
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Pagamento.class.getName()).log(Level.SEVERE, null, ex);
-            }   
-        }else{
-            JOptionPane.showMessageDialog(this, "Informe os dados solicitados e faça a busca.");
-        }
-    }//GEN-LAST:event_confirmaActionPerformed
-
-    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-        // TODO add your handling code here:
-        if(tipo.getSelectedItem() == "SELECIONE"){
-            JOptionPane.showMessageDialog(null, "Selecione um tipo de serviço.");
-            return;
-        }
-        if(cpf.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "O cpf é obrigatório");
-            return;
-        }
-        
-        if(ValidaCPF.calculaCPF(cpf.getText()) == false){
-            JOptionPane.showMessageDialog(null, "CPF inválido.\nDigite um CPF válido formado por 11 números.");
-            return;
-        }
-        if(tipo.getSelectedItem() == "Escolar"){
-            String cpfEsc = cpf.getText();
-            listaEscolar = new ArrayList(ClienteEscolar.consultarEscolarCpf(cpfEsc));
-            if(listaEscolar.isEmpty()){
-                JOptionPane.showMessageDialog(null, "O cpf informado não está cadastrado.");
-            }else{
-                ClienteEscolar esc = (ClienteEscolar)listaEscolar.get(0);
-                String v = String.valueOf(esc.getMensalidade());
-                nome.setText(esc.getNome());
-                solValor.setText(v);
-                SolCpf.setText(esc.getCpf());
-                this.tipoServico = tipo.getSelectedItem().toString();
-            }
-
-        }else{//if(tipo.getSelectedItem() == "Turismo"){
-            String cpfEsc = cpf.getText();
-            listaTurismo = new ArrayList(ClienteEscolar.consultarEscolarCpf(cpfEsc));
-            if(listaEscolar.isEmpty()){
-                JOptionPane.showMessageDialog(null, "O cpf informado não está cadastrado.");
-            }else{
-                tParcelas.setText("Parcelas:");
-                Dimension d = new Dimension(60, 20);
-                parcelas.setPreferredSize(d);
-                tValorParcela.setText("Valor de cada Parcela:");
-                tValorpar.setText("");
-                idVia.setText("Id Viagem:");
-                ClienteEscolar esc = (ClienteEscolar)listaTurismo.get(0); // aqui tem q ser chamada a tabela viagens
-                //String v = String.valueOf(esc.getValor());
-                //nome.setText(esc.getNomeResponsavel());
-                //solValor.setText(v);
-                //SolCpf.setText(esc.getCpfResponsavel());
-                //idViagem.setText(esc.getId());
-                this.tipoServico = tipo.getSelectedItem().toString();
-            }
-        }
-    }//GEN-LAST:event_buscarActionPerformed
-
-    private void parcelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parcelasActionPerformed
-        // TODO add your handling code here:
-        double n = Double.valueOf(parcelas.getSelectedItem().toString());
-        double valor = 3.2;
-        double n2 =  valor / n; //Double.valueOf(solValor.getText());
-        tValorpar.setText(String.valueOf(n2));
-    }//GEN-LAST:event_parcelasActionPerformed
-
-    private void tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoActionPerformed
-        // TODO add your handling code here:
-        if(tipo.getSelectedItem() == "Turismo"){
-            textoCpf.setText("*CPF do responsável pela viagem.");
-        }else{
-            textoCpf.setText("");
-        }
-    }//GEN-LAST:event_tipoActionPerformed
+        JOptionPane.showMessageDialog(this, "fdhgfdghf");
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -506,50 +203,16 @@ public class Pagamento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel SolCpf;
-    private javax.swing.JButton boleto;
-    private javax.swing.JButton buscar;
-    private javax.swing.JButton cancelar;
-    private javax.swing.JButton confirma;
-    private javax.swing.JTextField cpf;
-    private javax.swing.JTextField data;
-    private javax.swing.JLabel idVia;
-    private javax.swing.JLabel idViagem;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JLabel nome;
-    private javax.swing.JComboBox parcelas;
-    private javax.swing.JLabel solValor;
-    private javax.swing.JLabel tParcelas;
-    private javax.swing.JLabel tValorParcela;
-    private javax.swing.JLabel tValorpar;
-    private javax.swing.JLabel textoCpf;
-    private javax.swing.JComboBox tipo;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
-
-    public void atualiza(){
-        
-        tParcelas.setText("");
-        Dimension d = new Dimension(0, 0);
-        parcelas.setPreferredSize(d);
-        tValorParcela.setText("");
-        tValorpar.setText("");
-        textoCpf.setText("");
-        
-        nome.setText("");
-        solValor.setText("");
-        SolCpf.setText("");
-        idVia.setText("");
-        idViagem.setText("");
-    }
 }
