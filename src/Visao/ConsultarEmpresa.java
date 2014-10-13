@@ -6,17 +6,24 @@
 
 package Visao;
 
+import Controle.Empresa;
+import java.util.ArrayList;
+
 /**
  *
  * @author lailson
  */
 public class ConsultarEmpresa extends javax.swing.JFrame {
 
+     ArrayList lista = new ArrayList();
+     Long id;
+    
     /**
      * Creates new form ConsultarEmpresa
      */
     public ConsultarEmpresa() {
         initComponents();
+        atualiza();
     }
 
     /**
@@ -41,19 +48,21 @@ public class ConsultarEmpresa extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        nome_emp = new javax.swing.JLabel();
+        nome = new javax.swing.JLabel();
         razao = new javax.swing.JLabel();
         telefone = new javax.swing.JLabel();
         cnpj = new javax.swing.JLabel();
-        ender = new javax.swing.JLabel();
+        endereco = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         numero = new javax.swing.JLabel();
         cidade = new javax.swing.JLabel();
         estado = new javax.swing.JLabel();
-        proprietario = new javax.swing.JLabel();
-        rg_pro = new javax.swing.JLabel();
+        dono = new javax.swing.JLabel();
+        rgDono = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        cpf_pro = new javax.swing.JLabel();
+        cpfDono = new javax.swing.JLabel();
+        alterar = new javax.swing.JButton();
+        atualiza = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,102 +96,120 @@ public class ConsultarEmpresa extends javax.swing.JFrame {
 
         jLabel2.setText("RG:");
 
-        nome_emp.setText("jLabel3");
+        nome.setText("null");
 
-        razao.setText("jLabel3");
+        razao.setText("null");
 
-        telefone.setText("jLabel3");
+        telefone.setText("null");
 
-        cnpj.setText("jLabel3");
+        cnpj.setText("null");
 
-        ender.setText("jLabel3");
+        endereco.setText("null");
 
         jLabel3.setText("Nº:");
 
-        numero.setText("jLabel4");
+        numero.setText("null");
 
-        cidade.setText("jLabel4");
+        cidade.setText("null");
 
-        estado.setText("jLabel4");
+        estado.setText("null");
 
-        proprietario.setText("jLabel4");
+        dono.setText("null");
 
-        rg_pro.setText("jLabel4");
+        rgDono.setText("null");
 
         jLabel4.setText("CPF:");
 
-        cpf_pro.setText("jLabel5");
+        cpfDono.setText("null");
+
+        alterar.setText("Alterar Dados");
+        alterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alterarjButton2ActionPerformed(evt);
+            }
+        });
+
+        atualiza.setText("Atualiza Tela");
+        atualiza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atualizaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 88, Short.MAX_VALUE)
-                .addComponent(jLabel19)
-                .addGap(150, 150, 150))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator3)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel23)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel20)
-                                .addGap(18, 18, 18)
-                                .addComponent(nome_emp))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(rg_pro))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel22)
-                                            .addComponent(jLabel21)
-                                            .addComponent(jLabel23)
-                                            .addComponent(jLabel24))
-                                        .addGap(35, 35, 35)
-                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(cidade)
-                                            .addComponent(cnpj)
-                                            .addComponent(razao)
-                                            .addComponent(ender)
-                                            .addComponent(proprietario))))
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel22)
+                                    .addComponent(jLabel21)
+                                    .addComponent(jLabel24))
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addGap(189, 189, 189)
-                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGap(20, 20, 20)
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(cnpj)
+                                            .addComponent(cidade)
+                                            .addComponent(dono)
                                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                                .addComponent(jLabel26)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(telefone))
-                                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                                .addComponent(jLabel3)
+                                                .addComponent(endereco)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel3)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(numero))))
                                     .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addGap(208, 208, 208)
-                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(cpf_pro)
-                                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                                .addComponent(jLabel25)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(estado)))))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(razao))))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel20)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nome))
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(84, 84, 84)
+                                .addComponent(rgDono)))
+                        .addGap(153, 153, 153)))
                 .addContainerGap())
             .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(253, 253, 253)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel25)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(estado))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(298, 298, 298)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jButton6))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel26)
+                        .addGap(18, 18, 18)
+                        .addComponent(telefone))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(cpfDono)))
+                .addGap(89, 141, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addGap(74, 74, 74))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(alterar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(atualiza)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton6)
+                        .addGap(95, 95, 95))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,41 +220,54 @@ public class ConsultarEmpresa extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
-                    .addComponent(nome_emp))
-                .addGap(13, 13, 13)
+                    .addComponent(nome))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
                     .addComponent(razao))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel21)
+                            .addComponent(cnpj))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel23)
+                            .addComponent(endereco))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel24)
+                            .addComponent(cidade))
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(dono))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(rgDono)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel26)
+                            .addComponent(telefone))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(numero))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel25)
+                            .addComponent(estado))
+                        .addGap(54, 54, 54)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(cpfDono))))
+                .addGap(46, 46, 46)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel21)
-                    .addComponent(jLabel26)
-                    .addComponent(telefone)
-                    .addComponent(cnpj))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel23)
-                    .addComponent(ender)
-                    .addComponent(jLabel3)
-                    .addComponent(numero))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel24)
-                    .addComponent(jLabel25)
-                    .addComponent(cidade)
-                    .addComponent(estado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(proprietario))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(rg_pro)
-                    .addComponent(jLabel4)
-                    .addComponent(cpf_pro))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
-                .addComponent(jButton6)
+                    .addComponent(jButton6)
+                    .addComponent(alterar)
+                    .addComponent(atualiza))
                 .addContainerGap())
         );
 
@@ -255,6 +295,33 @@ public class ConsultarEmpresa extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jButton6jButton2ActionPerformed
+
+    private void alterarjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarjButton2ActionPerformed
+        // TODO add your handling code here:
+        Empresa empr = new Empresa();
+        //empr.setId(empr.getId());
+        empr.setId(id);
+        empr.setNome(nome.getText());
+        empr.setRazao(razao.getText());
+        empr.setCnpj(cnpj.getText());
+        empr.setTelefone(telefone.getText());
+        empr.setEndereco(endereco.getText());
+        empr.setNumero(numero.getText());
+        empr.setCidade(cidade.getText());
+        empr.setEstado(estado.getText());
+        empr.setProprietario(dono.getText());
+        empr.setRgProp(rgDono.getText());
+        empr.setCpfProp(cpfDono.getText());
+        
+        
+        new AlterarEmpresa(empr, 1).setVisible(true);
+        
+    }//GEN-LAST:event_alterarjButton2ActionPerformed
+
+    private void atualizaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizaActionPerformed
+        // TODO add your handling code here:
+        atualiza();
+    }//GEN-LAST:event_atualizaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,10 +359,13 @@ public class ConsultarEmpresa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton alterar;
+    private javax.swing.JButton atualiza;
     private javax.swing.JLabel cidade;
     private javax.swing.JLabel cnpj;
-    private javax.swing.JLabel cpf_pro;
-    private javax.swing.JLabel ender;
+    private javax.swing.JLabel cpfDono;
+    private javax.swing.JLabel dono;
+    private javax.swing.JLabel endereco;
     private javax.swing.JLabel estado;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
@@ -312,11 +382,33 @@ public class ConsultarEmpresa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JLabel nome_emp;
+    private javax.swing.JLabel nome;
     private javax.swing.JLabel numero;
-    private javax.swing.JLabel proprietario;
     private javax.swing.JLabel razao;
-    private javax.swing.JLabel rg_pro;
+    private javax.swing.JLabel rgDono;
     private javax.swing.JLabel telefone;
     // End of variables declaration//GEN-END:variables
+
+
+    public void atualiza(){
+        
+        lista = new ArrayList(Empresa.consultarEmpresa());
+        if (!lista.isEmpty()){
+            for (int i=0; i<lista.size(); i++){
+                Empresa emp = (Empresa)lista.get(i);
+                id = emp.getId();
+                nome.setText(emp.getNome());
+                razao.setText(emp.getRazao());
+                cnpj.setText(emp.getCnpj());
+                telefone.setText(emp.getTelefone());
+                endereco.setText(emp.getEndereco());
+                numero.setText(emp.getNumero());
+                cidade.setText(emp.getCidade());
+                estado.setText(emp.getEstado());
+                dono.setText(emp.getProprietario());
+                rgDono.setText(emp.getRgProp());
+                cpfDono.setText(emp.getCpfProp());
+            }
+        }  
+    }
 }

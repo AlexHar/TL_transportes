@@ -7,44 +7,49 @@
 package Controle;
 
 import Modelo.EmpresaDAO;
+import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
- * @author Lailson
+ * @author Lailson-pc
  */
-
-
-public class Empresa {
-    
+@Entity
+public class Empresa implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String nome;
     private String razao;
-    private int cnpj;
+    private String cnpj;
     private String telefone;
     private String endereco;
-    private int numero;
+    private String numero;
     private String cidade;
     private String estado;
     
     private String proprietario;
-    private int rgProp;
-    private int cpfProp;
+    private String rgProp;
+    private String cpfProp;
+    
+    static List<Empresa> empresa = new ArrayList();
+    
+    
 
-    public Empresa() {
+    public Long getId() {
+        return id;
     }
 
-    public Empresa(String nome, String razao, int cnpj, String telefone, String endereco, int numero, String cidade, String estado, String proprietario, int rgProp, int cpfProp) {
-        this.nome = nome;
-        this.razao = razao;
-        this.cnpj = cnpj;
-        this.telefone = telefone;
-        this.endereco = endereco;
-        this.numero = numero;
-        this.cidade = cidade;
-        this.estado = estado;
-        this.proprietario = proprietario;
-        this.rgProp = rgProp;
-        this.cpfProp = cpfProp;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -63,11 +68,11 @@ public class Empresa {
         this.razao = razao;
     }
 
-    public int getCnpj() {
+    public String getCnpj() {
         return cnpj;
     }
 
-    public void setCnpj(int cnpj) {
+    public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
 
@@ -87,11 +92,11 @@ public class Empresa {
         this.endereco = endereco;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
@@ -119,37 +124,59 @@ public class Empresa {
         this.proprietario = proprietario;
     }
 
-    public int getRgProp() {
+    public String getRgProp() {
         return rgProp;
     }
 
-    public void setRgProp(int rgProp) {
+    public void setRgProp(String rgProp) {
         this.rgProp = rgProp;
     }
 
-    public int getCpfProp() {
+    public String getCpfProp() {
         return cpfProp;
     }
 
-    public void setCpfProp(int cpfProp) {
+    public void setCpfProp(String cpfProp) {
         this.cpfProp = cpfProp;
+    }
+    
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Empresa)) {
+            return false;
+        }
+        Empresa other = (Empresa) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        return "Empresa{" + "nome=" + nome + ", razao=" + razao + ", cnpj=" + cnpj + ", telefone=" + telefone + ", endereco=" + endereco + ", numero=" + numero + ", cidade=" + cidade + ", estado=" + estado + ", proprietario=" + proprietario + ", rgProp=" + rgProp + ", cpfProp=" + cpfProp + '}';
+        return "Controle.Empresa[ id=" + id + " ]";
     }
     
-    public void cadastrarCliente(Empresa E) throws SQLException, ClassNotFoundException, Exception {
+    public void cadastrarEmpresa(Empresa E) throws SQLException, ClassNotFoundException, Exception {
         EmpresaDAO.cadastrar(E);
     }
 
-    public void consultarEmpresa(Empresa E) throws SQLException, ClassNotFoundException {
-        EmpresaDAO.consultar(E);
+    public static Collection consultarEmpresa(){
+        empresa = (List<Empresa>) EmpresaDAO.consultar();
+        return empresa;
     }
 
-    public void atualizarCliente(ClienteTurismo P) throws SQLException, ClassNotFoundException {
-        EmpresaDAO.atualizar(P);
+    public void atualizarEmpresa(Empresa E) throws SQLException, ClassNotFoundException {
+        EmpresaDAO.alterar(E);
     }
     
     

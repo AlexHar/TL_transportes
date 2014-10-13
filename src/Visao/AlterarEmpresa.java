@@ -6,7 +6,11 @@
 
 package Visao;
 
+import Controle.Empresa;
 import javax.swing.JOptionPane;
+import Validacoes.ValidaCPF;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,11 +18,37 @@ import javax.swing.JOptionPane;
  */
 public class AlterarEmpresa extends javax.swing.JFrame {
 
+    private Empresa e;
+    private int controlador = 0;
     /**
      * Creates new form AlterarEmpresa
      */
     public AlterarEmpresa() {
         initComponents();
+    }
+    
+    public AlterarEmpresa(Empresa e, int controlador) {
+        initComponents();
+        if (e.getNome() != "null"){
+            this.e = e;
+            this.controlador = controlador;
+            preencheEdits();
+        }
+    }
+    
+    public void preencheEdits(){
+        
+        nome.setText(e.getNome());
+        razao.setText(e.getRazao());
+        cnpj.setText(e.getCnpj());
+        telefone.setText(e.getTelefone());
+        endereco.setText(e.getEndereco());
+        nEndereco.setText(e.getNumero());
+        cidade.setText(e.getCidade());
+        estado.setText(e.getEstado());
+        dono.setText(e.getProprietario());
+        rgDono.setText(e.getRgProp());
+        cpfDono.setText(e.getCpfProp());
     }
 
     /**
@@ -35,29 +65,29 @@ public class AlterarEmpresa extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel20 = new javax.swing.JLabel();
-        fnome = new javax.swing.JTextField();
+        nome = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        fcnpj = new javax.swing.JTextField();
+        cnpj = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
-        fend = new javax.swing.JTextField();
+        endereco = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
-        fcidade = new javax.swing.JTextField();
+        cidade = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
-        festado = new javax.swing.JTextField();
+        estado = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
-        ftelefone = new javax.swing.JTextField();
+        telefone = new javax.swing.JTextField();
         salvar = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
-        frazao = new javax.swing.JTextField();
+        razao = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        fprop = new javax.swing.JTextField();
+        dono = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        frgprop = new javax.swing.JTextField();
+        rgDono = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        fcpfprop = new javax.swing.JTextField();
+        cpfDono = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        fnumero = new javax.swing.JTextField();
+        nEndereco = new javax.swing.JTextField();
 
         jLabel4.setText("jLabel4");
 
@@ -74,17 +104,17 @@ public class AlterarEmpresa extends javax.swing.JFrame {
 
         jLabel23.setText("Endereço:");
 
-        fend.addActionListener(new java.awt.event.ActionListener() {
+        endereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fendActionPerformed(evt);
+                enderecoActionPerformed(evt);
             }
         });
 
         jLabel24.setText("Cidade:");
 
-        fcidade.addActionListener(new java.awt.event.ActionListener() {
+        cidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fcidadeActionPerformed(evt);
+                cidadeActionPerformed(evt);
             }
         });
 
@@ -131,7 +161,7 @@ public class AlterarEmpresa extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel20)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fnome))
+                        .addComponent(nome))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel22)
@@ -143,31 +173,31 @@ public class AlterarEmpresa extends javax.swing.JFrame {
                         .addGap(21, 21, 21)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(frgprop, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(rgDono, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel3)
                                 .addGap(32, 32, 32)
-                                .addComponent(fcpfprop))
+                                .addComponent(cpfDono))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(fcidade, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cidade, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel25)
                                 .addGap(18, 18, 18)
-                                .addComponent(festado))
+                                .addComponent(estado))
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(fcnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel26)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(ftelefone))
-                            .addComponent(frazao)
-                            .addComponent(fprop)
+                                .addComponent(telefone))
+                            .addComponent(razao)
+                            .addComponent(dono)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(fend, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(endereco, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fnumero)))))
+                                .addComponent(nEndereco)))))
                 .addContainerGap())
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(227, 227, 227)
@@ -185,39 +215,39 @@ public class AlterarEmpresa extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
-                    .addComponent(fnome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
-                    .addComponent(frazao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(razao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fcnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21)
                     .addComponent(jLabel26)
-                    .addComponent(ftelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(telefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(endereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel23)
                     .addComponent(jLabel5)
-                    .addComponent(fnumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
-                    .addComponent(fcidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel25)
-                    .addComponent(festado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fprop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(frgprop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rgDono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(fcpfprop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cpfDono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(salvar)
@@ -245,14 +275,85 @@ public class AlterarEmpresa extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void fendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fendActionPerformed
+    private void enderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enderecoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_fendActionPerformed
+    }//GEN-LAST:event_enderecoActionPerformed
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "fdhgfdghf");
-        dispose();
+        if(nome.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "O campo nome é obrigatório");
+            return;
+        }if(razao.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "O campo razao é obrigatório");
+            return;
+        }if(cnpj.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "O campo CNPJ é obrigatório");
+            return;
+        }if(telefone.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "O campo telefone é obrigatório");
+            return;
+        }if(endereco.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "O campo endereço é obrigatório");
+            return;
+        }if(nEndereco.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "O campo Nº é obrigatório");
+            return;
+        }if(cidade.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "O campo cidade é obrigatório");
+            return;
+        }if(estado.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "O campo estado é obrigatório");
+            return;
+        }if(dono.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "O campo proprietário é obrigatório");
+            return;
+        }if(rgDono.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "O campo RG é obrigatório");
+            return;
+        }if(cpfDono.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "O campo CPF é obrigatório");
+            return;
+        }
+        
+        if(ValidaCPF.calculaCPF(cpfDono.getText()) == false){
+            JOptionPane.showMessageDialog(null, "O CPF" + " " + cpfDono.getText() + " " + "é inválido, digite novamente o CPF.",null, JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try{
+            Empresa empresa = new Empresa();
+            if (controlador == 1){
+                empresa.setId(e.getId());
+            }
+            empresa.setNome(nome.getText());
+            empresa.setRazao(razao.getText());
+            empresa.setCnpj(cnpj.getText());
+            empresa.setTelefone(telefone.getText());
+            empresa.setNumero(nEndereco.getText());
+            empresa.setCidade(cidade.getText());
+            empresa.setEstado(estado.getText());
+            empresa.setProprietario(dono.getText());
+            empresa.setRgProp(rgDono.getText());
+            empresa.setCpfProp(cpfDono.getText());
+            
+            if (controlador == 1){
+                empresa.atualizarEmpresa(empresa);
+                JOptionPane.showMessageDialog(rootPane, "Empresa atualizada com sucesso.");
+            }else{
+                empresa.cadastrarEmpresa(empresa);
+                JOptionPane.showMessageDialog(rootPane, "Empresa salva com sucesso.");
+            }
+            
+            
+            
+            dispose();
+        
+            //dispose();  
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AlterarEmpresa.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(AlterarEmpresa.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_salvarActionPerformed
 
     private void cancelarjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarjButton2ActionPerformed
@@ -263,9 +364,9 @@ public class AlterarEmpresa extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_cancelarjButton2ActionPerformed
 
-    private void fcidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fcidadeActionPerformed
+    private void cidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cidadeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_fcidadeActionPerformed
+    }//GEN-LAST:event_cidadeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -304,17 +405,12 @@ public class AlterarEmpresa extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelar;
-    private javax.swing.JTextField fcidade;
-    private javax.swing.JTextField fcnpj;
-    private javax.swing.JTextField fcpfprop;
-    private javax.swing.JTextField fend;
-    private javax.swing.JTextField festado;
-    private javax.swing.JTextField fnome;
-    private javax.swing.JTextField fnumero;
-    private javax.swing.JTextField fprop;
-    private javax.swing.JTextField frazao;
-    private javax.swing.JTextField frgprop;
-    private javax.swing.JTextField ftelefone;
+    private javax.swing.JTextField cidade;
+    private javax.swing.JTextField cnpj;
+    private javax.swing.JTextField cpfDono;
+    private javax.swing.JTextField dono;
+    private javax.swing.JTextField endereco;
+    private javax.swing.JTextField estado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -330,6 +426,11 @@ public class AlterarEmpresa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JTextField nEndereco;
+    private javax.swing.JTextField nome;
+    private javax.swing.JTextField razao;
+    private javax.swing.JTextField rgDono;
     private javax.swing.JButton salvar;
+    private javax.swing.JTextField telefone;
     // End of variables declaration//GEN-END:variables
 }

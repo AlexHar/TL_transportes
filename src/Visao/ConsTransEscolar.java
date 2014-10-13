@@ -6,7 +6,14 @@
 
 package Visao;
 
+import Controle.PassEscolar;
+import Controle.ServicoEscolarControle;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,11 +21,29 @@ import javax.swing.JOptionPane;
  */
 public class ConsTransEscolar extends javax.swing.JFrame {
 
+    
+    ArrayList lista = new ArrayList();
+    ArrayList listaPas = new ArrayList();
+    ArrayList listaTabPas = new ArrayList();
+    ArrayList listaExcluiPass = new ArrayList();
+    ArrayList listaAlteraPass = new ArrayList();
     /**
      * Creates new form ConsTransEscolar
      */
     public ConsTransEscolar() {
         initComponents();
+        atualiza();
+    }
+    
+    private Object getSelectedObject() {
+         Object selecionado = null;
+         int linhaSelecionada = tabela.getSelectedRow();
+         if(linhaSelecionada >= 0){
+             selecionado = lista.get(linhaSelecionada);
+         }else{
+             JOptionPane.showMessageDialog(this, "Selecione um elemento da tabela.");
+         }
+         return selecionado;
     }
 
     /**
@@ -32,11 +57,17 @@ public class ConsTransEscolar extends javax.swing.JFrame {
 
         jPanel7 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
-        jSeparator6 = new javax.swing.JSeparator();
-        jLabel24 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jButton12 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        cancelar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabela = new javax.swing.JTable();
+        alterar = new javax.swing.JButton();
+        excluir = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabPass = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        mostrar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,19 +76,66 @@ public class ConsTransEscolar extends javax.swing.JFrame {
         jLabel23.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
         jLabel23.setText("Consultar Transporte Escolar");
 
-        jLabel24.setText("Nome Escolar:");
-
-        jButton12.setText("Cancelar");
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
+        cancelar.setText("Cancelar");
+        cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12jButton2ActionPerformed(evt);
+                cancelarjButton2ActionPerformed(evt);
             }
         });
 
-        jButton11.setText("Buscar");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tabela);
+
+        alterar.setText("Alterar");
+        alterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                alterarjButton2ActionPerformed(evt);
+            }
+        });
+
+        excluir.setText("Excluir");
+        excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirjButton2ActionPerformed(evt);
+            }
+        });
+
+        tabPass.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tabPass);
+
+        jLabel1.setText("Lista de Passageiros:");
+
+        mostrar.setText("Mostrar");
+        mostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostrarActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Atualizar Tabela");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -68,40 +146,60 @@ public class ConsTransEscolar extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jSeparator6, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(223, 223, 223)
-                        .addComponent(jButton11)
-                        .addGap(30, 30, 30)
-                        .addComponent(jButton12)
+                        .addGap(156, 156, 156)
+                        .addComponent(jLabel23)
                         .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSeparator1))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel24)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4)))
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(mostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
+                                        .addGap(205, 205, 205)
+                                        .addComponent(alterar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(excluir)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cancelar))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel23)
-                .addGap(122, 122, 122))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jLabel23)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mostrar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel24))
-                .addGap(210, 210, 210)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton12)
-                    .addComponent(jButton11))
-                .addContainerGap(81, Short.MAX_VALUE))
+                    .addComponent(cancelar)
+                    .addComponent(alterar)
+                    .addComponent(excluir))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -109,8 +207,8 @@ public class ConsTransEscolar extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -124,19 +222,71 @@ public class ConsTransEscolar extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton12jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12jButton2ActionPerformed
+    private void excluirjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirjButton2ActionPerformed
+        // TODO add your handling code here:
+        Object o = getSelectedObject();
+        if (o != null){
+            ServicoEscolarControle p = (ServicoEscolarControle)o;
+            String id = p.getId().toString();
+            listaExcluiPass = new ArrayList(PassEscolar.consultarPassageiros(id));
+            // colocar aqui um joption pane perguntando se realmente quer excluir
+            String opcoes[] = {"Sim", "Não"};
+            int opcao = JOptionPane.showOptionDialog(this, "Deseja remover este Serviço: " + p.getId()+ "?", "Confirma remoção", 0, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[1]);
+            if(opcao == 0){
+                try {
+                    p.excluirServicoEscolar(p);
+                    for (int i=0; i<listaExcluiPass.size(); i++){
+                        PassEscolar pas = (PassEscolar)listaExcluiPass.get(i);
+                        pas.excluirPassageiro(pas);
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Serviço Excluído com sucesso.");
+                    atualiza();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ConsTransEscolar.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ConsTransEscolar.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }//GEN-LAST:event_excluirjButton2ActionPerformed
+
+    private void alterarjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarjButton2ActionPerformed
+        // TODO add your handling code here:
+        Object o = getSelectedObject();
+        if (o != null){
+            ServicoEscolarControle s = (ServicoEscolarControle)o;
+            String id = s.getId().toString();
+            listaAlteraPass = new ArrayList(PassEscolar.consultarPassageiros(id));
+            for (int j=0; j<listaAlteraPass.size(); j++){
+                PassEscolar pas = (PassEscolar)listaAlteraPass.get(j);
+            }
+            new ServicoEscolar(s, 1, listaAlteraPass).setVisible(true);
+        }
+    }//GEN-LAST:event_alterarjButton2ActionPerformed
+
+    private void cancelarjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarjButton2ActionPerformed
         // TODO add your handling code here:
         //Cancelar dados = new Cancelar();
         //dados.setLocationRelativeTo(null);
         //dados.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jButton12jButton2ActionPerformed
+    }//GEN-LAST:event_cancelarjButton2ActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+    private void mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "fdhgfdghf");
-        dispose();
-    }//GEN-LAST:event_jButton11ActionPerformed
+        Object o = getSelectedObject();
+        if (o != null){
+            ServicoEscolarControle p = (ServicoEscolarControle)o;
+            String id = p.getId().toString();
+            listaTabPas = new ArrayList(PassEscolar.consultarPassageiros(id));
+            atualizaTabPass(listaTabPas);
+        }
+    }//GEN-LAST:event_mostrarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        atualiza();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,12 +324,57 @@ public class ConsTransEscolar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
+    private javax.swing.JButton alterar;
+    private javax.swing.JButton cancelar;
+    private javax.swing.JButton excluir;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton mostrar;
+    private javax.swing.JTable tabPass;
+    private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
+
+    public void atualiza(){
+        atualizaTabelaGrande();
+        atualizaTabPass(null);
+    }
+    
+    public void atualizaTabelaGrande(){
+        String[] nomesColunas = {"Id", "Placa Veículo", "Cpf Motorista", "Rota"};
+        lista = new ArrayList(ServicoEscolarControle.consultarServico());
+        Object[][] dadosVetor = new Object[lista.size()][nomesColunas.length];
+        for (int i=0; i<lista.size(); i++){
+            ServicoEscolarControle serv = (ServicoEscolarControle)lista.get(i);
+            dadosVetor[i][0] = serv.getId();
+            dadosVetor[i][1] = serv.getPlacaVeiculo();
+            dadosVetor[i][2] = serv.getCpfMotorista();
+            dadosVetor[i][3] = serv.getRota();
+        }
+        DefaultTableModel modelo = new DefaultTableModel(dadosVetor,nomesColunas);
+        tabela.setModel(modelo);
+        if(lista.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Não existe Serviços Escolares cadastrados.");
+        }
+    }
+    
+    public void atualizaTabPass(ArrayList tab){
+        this.listaPas = tab;
+        String[] nomesColunas = {"Nome", "CPF"};
+        Object[][] dadosVetorPass = new Object[0][nomesColunas.length];
+        if (listaPas != null && listaPas.size() > 0){
+            dadosVetorPass = new Object[listaPas.size()][nomesColunas.length];
+            for (int j=0; j<listaPas.size(); j++){
+                PassEscolar pas = (PassEscolar)listaPas.get(j);
+                dadosVetorPass[j][0] = pas.getNome();
+                dadosVetorPass[j][1] = pas.getCpf();
+            }    
+        }
+        DefaultTableModel modeloPass = new DefaultTableModel(dadosVetorPass,nomesColunas);
+        tabPass.setModel(modeloPass);
+    }
 }

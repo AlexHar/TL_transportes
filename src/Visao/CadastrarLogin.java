@@ -39,11 +39,11 @@ public class CadastrarLogin extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
         usuario = new javax.swing.JLabel();
-        senha = new javax.swing.JLabel();
-        tUsuario = new javax.swing.JTextField();
-        tSenha = new javax.swing.JTextField();
+        sennn = new javax.swing.JLabel();
+        user = new javax.swing.JTextField();
         salvar = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
+        senha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,8 +55,8 @@ public class CadastrarLogin extends javax.swing.JFrame {
         usuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         usuario.setText("Nome Usuário:");
 
-        senha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        senha.setText("Senha:");
+        sennn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        sennn.setText("Senha:");
 
         salvar.setText("Salvar");
         salvar.addActionListener(new java.awt.event.ActionListener() {
@@ -83,11 +83,11 @@ public class CadastrarLogin extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(usuario)
-                            .addComponent(senha))
+                            .addComponent(sennn))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tUsuario)
-                            .addComponent(tSenha))))
+                            .addComponent(user)
+                            .addComponent(senha))))
                 .addContainerGap())
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(53, 53, 53)
@@ -109,11 +109,11 @@ public class CadastrarLogin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(usuario)
-                    .addComponent(tUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(senha)
-                    .addComponent(tSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sennn)
+                    .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(salvar)
@@ -144,20 +144,34 @@ public class CadastrarLogin extends javax.swing.JFrame {
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
         // TODO add your handling code here:
         
-        
-        try {
-            Login log = new Login();
-            LoginDAO l = new LoginDAO();
-            log.setId(Long.MIN_VALUE);
-            log.setLogin(this.tUsuario.getText());
-            log.setSenha(this.tSenha.getText());
-            l.cadastrar(log);
-            JOptionPane.showMessageDialog(null, "Login Salvo com sucesso");
-        } catch (SQLException ex) {
-            Logger.getLogger(CadastrarLogin.class.getName()).log(Level.SEVERE, null, ex);
+        boolean temLogin = false;
+        boolean temSenha = false;
+        try{
+            while(temLogin == false && temSenha== false){
+                String use = user.getText();
+                String sen = senha.getText();
+
+                if(use.length() == 0 || sen.length() == 0){
+                    JOptionPane.showMessageDialog(rootPane, "Existem campos não preenchidos.");
+                    break;
+                }else{
+                    temLogin = true;
+                    temSenha = true;
+
+                    Login l = new Login();
+                    l.setLogin(use);
+                    l.setSenha(sen);
+                    l.cadastrarLogin(l);
+                    JOptionPane.showMessageDialog(this, "Login criado com sucesso.");
+                    dispose();
+
+                }
+            }
+        }catch(ClassNotFoundException ex) {
+            Logger.getLogger(ServicoEscolar.class.getName()).log(Level.SEVERE, null, ex);
+        }catch (Exception ex) {
+            Logger.getLogger(ServicoEscolar.class.getName()).log(Level.SEVERE, null, ex);
         }
-        dispose();
-        
     }//GEN-LAST:event_salvarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
@@ -206,9 +220,9 @@ public class CadastrarLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JButton salvar;
-    private javax.swing.JLabel senha;
-    private javax.swing.JTextField tSenha;
-    private javax.swing.JTextField tUsuario;
+    private javax.swing.JPasswordField senha;
+    private javax.swing.JLabel sennn;
+    private javax.swing.JTextField user;
     private javax.swing.JLabel usuario;
     // End of variables declaration//GEN-END:variables
 }
