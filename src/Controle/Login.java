@@ -6,7 +6,9 @@
 
 package Controle;
 
+import Modelo.LoginDAO;
 import java.io.Serializable;
+import java.sql.SQLException;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -76,4 +78,7 @@ public class Login implements Serializable {
         return "Modelo.Login[ id=" + id + " ]";
     }
     
+    public void cadastrarLogin(Login L) throws SQLException, ClassNotFoundException, Exception {
+        LoginDAO.cadastrar(L);
+    }
 }
