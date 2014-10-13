@@ -248,6 +248,15 @@ public class CadastrarVeiculo extends javax.swing.JFrame {
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
         // TODO add your handling code here:
+        if (this.campoPlaca.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo placa é obrigatório");
+            return;
+        }
+        if (this.campoCapacidade.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo capacidade é obrigatório");
+            return;
+        }
+        
         try {
             Veiculo veiculo = new Veiculo();
             

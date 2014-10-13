@@ -242,9 +242,9 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel23)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(campoEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campoEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel28)
-                        .addComponent(campoNumEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(campoNumEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
@@ -263,7 +263,7 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(campoSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Salvar)
                     .addComponent(Cancelar))
@@ -296,6 +296,41 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
         // TODO add your handling code here:
+        if (this.campoNome.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo nome é obrigatório");
+            return;
+        } if (this.campoRG.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo RG é obrigatório");
+            return;
+        } if (this.campoCPF.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo CPF é obrigatório");
+            return;
+        } if (this.campoEnd.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo endereço é obrigatório");
+            return;
+        } if (this.campoNumEnd.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo número de endereço é obrigatório");
+            return;
+        } if (this.campoCidade.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo cidade é obrigatório");
+            return;
+        } if (this.campoEstado.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo estado é obrigatório");
+            return;
+        } if (this.campoTel.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo telefone é obrigatório");
+            return;
+        } if (this.campoNasc.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo nascimento é obrigatório");
+            return;
+        } if (this.campoCargo.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo cargo é obrigatório");
+            return;
+        } if (this.campoSalario.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo salario é obrigatório");
+            return;
+        }
+        
         boolean flagCpf = false;
         
         try {

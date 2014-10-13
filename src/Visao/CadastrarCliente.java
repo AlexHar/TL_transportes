@@ -272,6 +272,34 @@ public class CadastrarCliente extends javax.swing.JFrame {
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
         // TODO add your handling code here:
+        if (this.campoNome.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "O campo nome é obrigatório");
+            return;
+        } if (this.campoRG.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo RG é obrigatório");
+            return;
+        } if (this.campoCPF.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "O campo CPF é obrigatório");
+            return;
+        } if (this.campoData.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo data é obrigatório");
+            return;
+        } if (this.campoTel.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo telefone é obrigatório");
+            return;
+        } if (this.campoEnde.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "O campo endereço é obrigatório");
+            return;
+        } if (this.campoNumEnd.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo número de endereço é obrigatório");
+            return;
+        } if (this.campoCidade.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo cidade é obrigatório");
+            return;
+        } if (this.campoUf.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo UF é obrigatório");
+            return;
+        }
         
         
         boolean flag = false;
