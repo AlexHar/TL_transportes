@@ -170,23 +170,6 @@ public class CadastrarPecas extends javax.swing.JFrame {
 
     private void cadastrarPecasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarPecasActionPerformed
         // TODO add your handling code here:
-        if(this.campoNome.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo nome é obrigatório");
-            return;
-        }
-        if (this.campoTipo.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo tipo é obrigatório");
-            return;
-        }
-        if (this.campoCodigo.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo código é obrigatório");
-            return;
-        }
-        if (this.campoValor.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo valor é obrigatório");
-            return;
-        }
-        
         Pecas peca = new Pecas();
         
         //int codPecas = Integer.parseInt(this.campoCodigo.getText());

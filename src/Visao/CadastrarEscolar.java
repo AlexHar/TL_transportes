@@ -316,70 +316,17 @@ public class CadastrarEscolar extends javax.swing.JFrame {
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
         // TODO add your handling code here:
-        if (this.campoNome.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo nome é obrigatório");
-            return;
-        }
-        if (this.campoRG.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo RG é obrigatório");
-            return;
-        }
-        if (this.campoCPF.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo CPF é obrigatório");
-            return;
-        }
-        if (this.campoData.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo data é obrigatório");
-            return;
-        }
-        if (this.campoTel.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo telefone é obrigatório");
-            return;
-        }
-        if (this.campoEnde.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo endereço é obrigatório");
-            return;
-        }
-        if (this.campoNumEnde.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo número de endereço é obrigatório");
-            return;
-        }
-        if (this.campoCidade.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo cidade é obrigatório");
-            return;
-        }
-        if (this.campoUf.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo UF é obrigatório");
-            return;
-        }
-        if (this.campoNomeResp.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo nome do responsável é obrigatório");
-            return;
-        }
-        if (this.campoCPFResp.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo CPF do responsável é obrigatório");
-            return;
-        }
-        if (this.campoEscola.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo escola é obrigatório");
-            return;
-        }
-        if (this.campoMensalidade.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo mensalidade é obrigatório");
-            return;
-        }
-        
-        boolean flagCpf = false;
+boolean flagCpf = false;
         boolean flagCpfResponsavel = false;
         try {
             ClienteEscolar cliente = new ClienteEscolar();
             
             while (flagCpf == false || flagCpfResponsavel == false) {
                 int rg = Integer.parseInt(this.campoRG.getText());
+                //int cpf = Integer.parseInt(this.campoCPF.getText());
                 int tel = Integer.parseInt(this.campoTel.getText());
                 int numEnd = Integer.parseInt(this.campoNumEnde.getText());
-                double mensalidade = Double.parseDouble(this.campoMensalidade.getText());
-                
+                //int cpfResp = Integer.parseInt(this.campoCPFResp.getText());
 
             
                 cliente.setNome(this.campoNome.getText());
@@ -393,7 +340,6 @@ public class CadastrarEscolar extends javax.swing.JFrame {
                 cliente.setEstado(this.campoUf.getText());
                 cliente.setNomeResponsavel(this.campoNomeResp.getText());
                 cliente.setCpfResponsavel(this.campoCPFResp.getText());
-                cliente.setMensalidade(mensalidade);
                 cliente.setNomeEscola(this.campoEscola.getText());
                 
                 flagCpf = verificaCPF(this.campoCPF.getText());
